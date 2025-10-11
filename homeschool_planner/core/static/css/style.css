@@ -29,3 +29,9 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
+/* -------- Navbar -------- */
+.navbar {
+    background-color: var(--secondary);
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+}

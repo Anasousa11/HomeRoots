@@ -17,8 +17,6 @@ body, html {
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-dark);
-    background-color: transparent;
-    background: none !important;
 }
 
 body {

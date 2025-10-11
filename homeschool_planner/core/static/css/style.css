@@ -69,3 +69,13 @@ body {
     background-color: var(--accent);
     transition: 0.3s ease;
 }
+/* -------- Footer -------- */
+footer {
+    background-color: var(--secondary);
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 3rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+}

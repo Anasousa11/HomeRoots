@@ -1,0 +1,9 @@
+/* Colors Palette */
+:root {
+    --primary: #8BAE8C;
+    --secondary: #EAD8C0;
+    --accent: #A5C8E6;
+    --neutral: #F4F5F7;
+    --text-dark: #2F3437;
+    --text-light: #5B5F62;
+}

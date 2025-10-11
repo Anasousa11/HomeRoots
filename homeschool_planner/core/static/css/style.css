@@ -7,13 +7,18 @@
     --text-dark: #2F3437;
     --text-light: #5B5F62;
 }
+body, html {
+    background-color: transparent;
+    background: none;
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-dark);
-    background-color: var(--neutral);
+    background-color: transparent;
+    background: none !important;
 }
 
 body {

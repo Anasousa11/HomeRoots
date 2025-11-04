@@ -123,3 +123,8 @@ footer {
     top: 0;
     z-index: 10;
 }
+.navbar .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}

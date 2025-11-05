@@ -24,7 +24,7 @@ body, html {
 }
 
 body {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif !important; 
     font-size: 16px;
     background-color: var(--neutral);
     color: var(--text-dark);
@@ -87,7 +87,7 @@ body {
 .custom-navbar .navbar-brand:hover {
     color: var(--accent);
     text-decoration: none;
-
+}
 /* -------- Buttons -------- */
 .btn-primary {
     background-color: var(--primary);
@@ -146,3 +146,4 @@ footer {
   border-radius: 8px;
 }
 
+}

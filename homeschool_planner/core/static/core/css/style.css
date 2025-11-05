@@ -1,6 +1,6 @@
 /* -------- Import(fonts) -------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
 
 /* Colors Palette */
 :root {
@@ -24,7 +24,7 @@ body, html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Playfair Display', serif;
     font-size: 16px;
     background-color: var(--neutral);
     color: var(--text-dark);
@@ -84,6 +84,9 @@ body {
     letter-spacing: 0.5px;
     transition: color 0.3s ease;
 }
+.custom-navbar .navbar-brand:hover {
+    color: var(--accent);
+    text-decoration: none;
 
 /* -------- Buttons -------- */
 .btn-primary {

@@ -42,41 +42,34 @@
     </main>
 
     <footer>
-        <!-- footer -->
-         <footer class="site-footer mt-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 footer-section">
-                        <h5>About HomeRoots</h5>
-                        <p>Helping families organize, plan, and celebrate their homeschooling journey.</p>
-                    </div>
-                     <div class="col-md-4 footer-section">
-                        <h5>Quick Links</h5>
-                        <ul class="footer-links">
-                            <li><a href="{% url 'core:index' %}">Home</a></li>
-                            <li><a href="{% url 'core:students' %}">Students</a></li>
-                            <li><a href="{% url 'core:lessons' %}">Lessons</a></li>
-                            <li><a href="{% url 'core:progress' %}">Progress</a></li>
-                            <li><a href="{% url 'core:contact' %}">Contact</a></li>
-                        </ul>
-                    </div>
-                     <div class="col-md-4 footer-section">
-                        <h5>Contact</h5>
-                        <p>Email: support@homeroots.com</p>
-                        <p>Phone: +44 1234 567 890</p>
-                        <div class="social-icons">
-                            <a href="#"><i class="bi bi-facebook"></i></a>
-                            <a href="#"><i class="bi bi-instagram"></i></a>
-                            <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <p class="text-center copyright">
-                    &copy; 2025 HomeRoots. All Rights Reserved.
-                </p>
-            </div>
-        </footer>
+    <div class="footer-container">
+        <div class="footer-column">
+        <h4>About HomeRoots</h4>
+        <p>Helping families organize, plan, and celebrate their homeschooling journey.</p>
+        </div>
+
+        <div class="footer-column">
+        <h4>Quick Links</h4>
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="#">Students</a></li>
+            <li><a href="#">Lessons</a></li>
+            <li><a href="#">Progress</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-column">
+        <h4>Contact</h4>
+        <p>Email: support@homeroots.com</p>
+        <p>Phone: +44 1234 567 890</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2025 HomeRoots. All Rights Reserved.
+    </div>
+    </footer>
     </div>
 </body>
 </html>

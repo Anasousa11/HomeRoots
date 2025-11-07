@@ -104,13 +104,13 @@ body {
 }
 /* -------- Footer -------- */
 footer {
-    background-color: var(--secondary);
+    background-color: #8BAE8C;
+    color: white;
     text-align: center;
     padding: 1rem 0;
-    margin-top: 3rem;
-    color: var(--text-light);
+    margin-top: auto;
     font-size: 0.9rem;
-    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
 }
 /* -------- Hero Section -------- */
 .hero {

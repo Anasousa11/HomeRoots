@@ -7,5 +7,24 @@
     <p class="lead text-muted">Track and organize each learner's profile, progress, and journey</p>
   </div>
 
-
-
+  <!-- Quick Actions -->
+  <div class="row g-3 mb-5">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #8BAE8C 0%, #7c9d75 100%); color: white;">
+        <div class="card-body text-center py-5">
+          <h3 class="card-title mb-3">👥 View All Students</h3>
+          <p class="card-text mb-4">See a complete list of all registered students with quick access to their profiles.</p>
+          <a href="{% url 'core:student_list' %}" class="btn btn-light fw-bold">View Student List</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #5a8f6b 0%, #4a7e5a 100%); color: white;">
+        <div class="card-body text-center py-5">
+          <h3 class="card-title mb-3">➕ Add New Student</h3>
+          <p class="card-text mb-4">Onboard a new learner to your homeschool with just a few clicks.</p>
+          <a href="{% url 'core:student_add' %}" class="btn btn-light fw-bold">Add Student</a>
+        </div>
+      </div>
+    </div>
+  </div>

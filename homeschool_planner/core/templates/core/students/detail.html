@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+    <div>
+      <a class="btn btn-outline-primary" href="{% url 'core:student_edit' student.pk %}">Edit</a>
+      <a class="btn btn-outline-danger" href="{% url 'core:student_delete' student.pk %}">Delete</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 text-center">
+      {% if student.profile_image %}
+      <img src="{{ student.profile_image.url }}" class="img-fluid rounded" alt="{{ student }}">
+      {% else %}
+      <div style="width:160px;height:160px;background:var(--primary);color:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:48px;">
+        {{ student.first_name|slice:":1" }}{{ student.last_name|slice:":1" }}
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <h5>Details</h5>
+      <p><strong>Date of birth:</strong> {% if student.dob %}{{ student.dob|date:"j M Y" }}{% else %}—{% endif %}</p>
+      <p><strong>Gender:</strong> {{ student.get_gender_display }}</p>
+      <p><strong>Notes:</strong><br>{{ student.notes|linebreaks }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

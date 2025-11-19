@@ -15,7 +15,7 @@
           <div class="card-body text-center py-5">
             <h4 class="card-title mb-3" style="font-weight: 600;">📚 Browse Lessons</h4>
             <p class="card-text mb-4">View all lessons organized by subject, grade level, and difficulty.</p>
-            <a href="#" class="btn btn-light fw-bold">View All Lessons</a>
+            <a href="{% url 'lessons:list' %}" class="btn btn-light fw-bold">View All Lessons</a>
           </div>
         </div>
       </div>
@@ -24,10 +24,26 @@
           <div class="card-body text-center py-5">
             <h4 class="card-title mb-3" style="font-weight: 600;">✏️ Create New Lesson</h4>
             <p class="card-text mb-4">Design a new lesson with objectives, materials, and assignments.</p>
-            <a href="#" class="btn btn-light fw-bold">Create Lesson</a>
+            <a href="{% url 'lessons:create' %}" class="btn btn-light fw-bold">Create Lesson</a>
           </div>
         </div>
       </div>
     </div>
 
-   
+    <!-- Key Features -->
+    <h4 style="color: var(--text-dark); font-weight: 600; margin-bottom: 30px; text-align: center;">Key Features</h4>
+    <div class="feature-grid mb-5">
+      <div class="feature-card">
+        <div class="icon">🎯</div>
+        <h5 style="color: var(--text-dark); font-weight: 600;">Learning Objectives</h5>
+        <p style="color: var(--text-light);">Define clear learning outcomes for each lesson to track mastery.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📅</div>
+        <h5 style="color: var(--text-dark); font-weight: 600;">Schedule & Calendar</h5>
+        <p style="color: var(--text-light);">Plan lessons for the week or year with an intuitive calendar view.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📎</div>
+        <h5 style="color: var(--text-dark); font-weight: 600;">Resource Library</h5>
+        <p style="color: var(--text-light);">Attach materials, worksheets, and links to each lesson.</p>

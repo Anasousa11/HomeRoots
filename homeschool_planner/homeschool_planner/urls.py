@@ -20,5 +20,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')), # Include URLs from the core app
+    # Include `core` app urls with a namespace so templates using 'core:...'
+    # will always resolve correctly.
+    path('', include(('core.urls', 'core'), namespace='core')),
 ]

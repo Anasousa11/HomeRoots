@@ -38,5 +38,5 @@ class StudentUpdateView(UpdateView):
 
 class StudentDeleteView(DeleteView):
     model = Student
-    template_name = 'core/students/confirm_delete.html'
+    template_name = 'core/students/confirm-delete.html'
     success_url = reverse_lazy('core:students')

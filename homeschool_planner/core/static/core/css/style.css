@@ -120,6 +120,14 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+footer ul,
+footer li {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+
 /* -------- Hero Section -------- */
 .hero {
   background-size: cover;
@@ -181,4 +189,3 @@ footer a:hover {
 }
 
 
-}

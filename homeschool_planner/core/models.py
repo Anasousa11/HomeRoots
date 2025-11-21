@@ -64,3 +64,16 @@ class Lesson(models.Model):
 
     def get_absolute_url(self):
         return reverse('core:lesson_detail', args=[str(self.id)])
+# core/models.py
+class LessonProgress(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='lesson_progress')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='student_progress')
+    completed = models.BooleanField(default=False)
+    grade = models.IntegerField(null=True, blank=True)  # 0-100
+    completed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ('student', 'lesson')
+
+    def __str__(self):
+        return f"{self.student} - {self.lesson}: {'Completed' if self.completed else 'Pending'}"

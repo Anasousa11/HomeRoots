@@ -4,8 +4,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from .models import Student, Lesson
 from .forms import StudentForm, LessonForm
-from django.shortcuts import render, get_object_or_404
-from .models import Student, LessonProgress
 
 def index(request):
     return render(request, 'core/index.html')
@@ -17,10 +15,6 @@ def progress(request):
     return render(request, 'core/progress.html')
 def contact(request):
     return render(request, 'core/contact.html')
-def progress_view(request, student_id):
-    student = get_object_or_404(Student, id=student_id)
-    progress_records = student.lesson_progress.select_related('lesson').all()
-
 
 # Student Views
 class StudentListView(ListView):
@@ -77,6 +71,12 @@ class LessonDeleteView(DeleteView):
     template_name = 'core/lessons/confirm-delete.html'
     success_url = reverse_lazy('core:lessons')
     # core/views.py
+from django.shortcuts import render, get_object_or_404
+from .models import Student, LessonProgress
+
+def progress_view(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+    progress_records = student.lesson_progress.select_related('lesson').all()
 
     # Filter completed lessons
     completed = progress_records.filter(completed=True)

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>{{ student.first_name }} {{ student.last_name }}'s Progress</h2>
+
+<h3>Lessons Completed</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Lesson</th>
+            <th>Subject</th>
+            <th>Completed</th>
+            <th>Grade</th>
+            <th>Date Completed</th>
+        </tr>
+    </thead>
+    

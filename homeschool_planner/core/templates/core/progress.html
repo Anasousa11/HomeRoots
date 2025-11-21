@@ -15,4 +15,15 @@
             <th>Date Completed</th>
         </tr>
     </thead>
-    
+    <tbody>
+        {% for record in progress_records %}
+        <tr>
+            <td>{{ record.lesson.title }}</td>
+            <td>{{ record.lesson.get_subject_display }}</td>
+            <td>{% if record.completed %}✅{% else %}❌{% endif %}</td>
+            <td>{{ record.grade|default:"N/A" }}</td>
+            <td>{{ record.completed_at|date:"Y-m-d" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

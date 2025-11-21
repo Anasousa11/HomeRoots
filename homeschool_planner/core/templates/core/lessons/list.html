@@ -7,4 +7,42 @@
         <h2 style="color: var(--text-dark); font-weight: 600; margin-bottom: 5px;">All Lessons</h2>
         <p style="color: var(--text-light);">Manage your curriculum and lesson plans</p>
       </div>
-      <a href="{% url 'core:lesson_add' %}" class="btn btn-success" style="background-color: var(--primary); border: none;">+ Adfdzfhfjfjhgdf
+      <a href="{% url 'core:lesson_add' %}" class="btn btn-success" style="background-color: var(--primary); border: none;">+ Add New Lesson</a>
+    </div>
+  </div>
+
+  {% if lessons %}
+    <div class="row g-4">
+      {% for lesson in lessons %}
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm" style="height: 100%; transition: transform 0.2s, box-shadow 0.2s;">
+            <div class="card-body">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                <div>
+                  <h5 class="card-title" style="color: var(--text-dark); font-weight: 600;">{{ lesson.title }}</h5>
+                  <div style="margin-bottom: 10px;">
+                    <span class="badge" style="background-color: var(--primary); color: white; margin-right: 8px;">{{ lesson.get_subject_display }}</span>
+                    <span class="badge" style="background-color: var(--accent); color: white;">{{ lesson.get_level_display }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <p class="card-text" style="color: var(--text-light); margin-bottom: 15px; font-size: 0.95rem;">{{ lesson.description|truncatewords:20 }}</p>
+              
+              <div style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px;">
+                {% if lesson.lesson_date %}
+                  <p style="margin: 5px 0;"><strong>📅</strong> {{ lesson.lesson_date|date:"M d, Y" }}</p>
+                {% endif %}
+                <p style="margin: 5px 0;"><strong>⏱️</strong> {{ lesson.duration_minutes }} minutes</p>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <a href="{{ lesson.get_absolute_url }}" class="btn btn-sm" style="background-color: var(--primary); color: white; border: none; flex: 1; text-align: center;">View</a>
+                <a href="{% url 'core:lesson_edit' lesson.id %}" class="btn btn-sm" style="background-color: var(--accent); color: white; border: none; flex: 1; text-align: center;">Edit</a>
+                <a href="{% url 'core:lesson_delete' lesson.id %}" class="btn btn-sm btn-danger" style="border: none; flex: 1; text-align: center;">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>

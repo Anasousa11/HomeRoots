@@ -19,6 +19,13 @@ urlpatterns = [
     path('students/<int:pk>/', views.StudentDetailView.as_view(), name='student_detail'),
     path('students/<int:pk>/edit/', views.StudentUpdateView.as_view(), name='student_edit'),
     path('students/<int:pk>/delete/', views.StudentDeleteView.as_view(), name='student_delete'),
+
+    # Lessons management (class-based views)
+    path('lessons/list/', views.LessonListView.as_view(), name='lesson_list'),
+    path('lessons/add/', views.LessonCreateView.as_view(), name='lesson_add'),
+    path('lessons/<int:pk>/', views.LessonDetailView.as_view(), name='lesson_detail'),
+    path('lessons/<int:pk>/edit/', views.LessonUpdateView.as_view(), name='lesson_edit'),
+    path('lessons/<int:pk>/delete/', views.LessonDeleteView.as_view(), name='lesson_delete'),
 ]
 
 # Serve uploaded media files during development

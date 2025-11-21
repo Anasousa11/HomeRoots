@@ -27,3 +27,29 @@
         {% endfor %}
     </tbody>
 </table>
+
+<h3>Grades Overview</h3>
+<canvas id="gradeChart" width="400" height="400"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('gradeChart').getContext('2d');
+const data = {
+    labels: {{ grade_counts.keys|list|safe }},
+    datasets: [{
+        label: 'Number of Lessons',
+        data: {{ grade_counts.values|list|safe }},
+        backgroundColor: [
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(255, 206, 86, 0.7)',
+            'rgba(255, 99, 132, 0.7)'
+        ]
+    }]
+};
+new Chart(ctx, {
+    type: 'pie',
+    data: data,
+});
+</script>
+{% endblock %}

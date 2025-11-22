@@ -27,7 +27,7 @@ urlpatterns = [
     path('lessons/<int:pk>/edit/', views.LessonUpdateView.as_view(), name='lesson_edit'),
     path('lessons/<int:pk>/delete/', views.LessonDeleteView.as_view(), name='lesson_delete'),
     # Student-specific progress view (shows a student's lesson progress)
-    path('progress/<int:student_id>/', views.progress_view, name='student_progress'),
+    path('progress/<int:student_id>/', views.progress_overview, name='student_progress'),
 ]
 
 # Serve uploaded media files during development

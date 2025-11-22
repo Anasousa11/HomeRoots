@@ -1,13 +1,19 @@
-<!-- core/templates/core/progress.html -->
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="container my-5">
-    <h2>{{ student.first_name }} {{ student.last_name }} - Progress</h2>
 
-    <!-- Completed Lessons Table -->
-    <h4 class="mt-4">Completed Lessons</h4>
-    {% if completed %}
+<div class="container my-5">
+    <h2>Student Progress Overview</h2>
+
+```
+{% for item in students_data %}
+<div class="mt-5">
+
+    <h3>{{ item.student.first_name }} {{ item.student.last_name }}</h3>
+
+    {% if item.completed %}
+    <h4 class="mt-3">Completed Lessons</h4>
+
     <table class="table table-striped mt-2">
         <thead>
             <tr>
@@ -19,7 +25,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for record in completed %}
+            {% for record in item.completed %}
             <tr>
                 <td>{{ record.lesson.title }}</td>
                 <td>{{ record.lesson.get_subject_display }}</td>
@@ -30,55 +36,59 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <!-- Chart Container -->
+    <h5 class="mt-4">Grade Distribution</h5>
+    <canvas id="chart-{{ item.student.id }}" width="400" height="300"></canvas>
+
     {% else %}
-    <p>No lessons completed yet.</p>
+    <p>No completed lessons yet.</p>
     {% endif %}
 
-    <!-- Grades Pie Chart -->
-    <h4 class="mt-5">Grade Distribution</h4>
-    <canvas id="gradesChart" width="400" height="400"></canvas>
+    <hr>
+</div>
+{% endfor %}
+```
+
 </div>
 
 <!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-const ctx = document.getElementById('gradesChart').getContext('2d');
-const gradesData = {
-    labels: {{ grade_counts.keys|list|safe }},
-    datasets: [{
-        label: 'Number of Lessons',
-        data: {{ grade_counts.values|list|safe }},
-        backgroundColor: [
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-        ],
-        borderColor: [
-            'rgba(75, 192, 192, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(255, 99, 132, 1)'
-        ],
-        borderWidth: 1
-    }]
-};
 
-const gradesChart = new Chart(ctx, {
-    type: 'pie',
-    data: gradesData,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'bottom'
-            },
-            title: {
-                display: true,
-                text: 'Grade Distribution'
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+{% for item in students_data %}
+    const ctx{{ item.student.id }} = document.getElementById('chart-{{ item.student.id }}').getContext('2d');
+
+    const data{{ item.student.id }} = {
+        labels: {{ item.grade_counts.keys|list|safe }},
+        datasets: [{
+            label: 'Number of Lessons',
+            data: {{ item.grade_counts.values|list|safe }},
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+            ]
+        }]
+    };
+
+    new Chart(ctx{{ item.student.id }}, {
+        type: 'pie',
+        data: data{{ item.student.id }},
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+                title: {
+                    display: true,
+                    text: '{{ item.student.first_name }} {{ item.student.last_name }} - Grade Distribution'
+                }
             }
         }
-    }
-});
+    });
+{% endfor %}
 </script>
+
 {% endblock %}

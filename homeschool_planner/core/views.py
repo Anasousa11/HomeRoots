@@ -70,30 +70,39 @@ class LessonDeleteView(DeleteView):
     model = Lesson
     template_name = 'core/lessons/confirm-delete.html'
     success_url = reverse_lazy('core:lessons')
-    # core/views.py
-from django.shortcuts import render, get_object_or_404
+    
+    # progress views.py
+from django.shortcuts import render
 from .models import Student, LessonProgress
 
-def progress_view(request, student_id):
-    student = get_object_or_404(Student, id=student_id)
-    progress_records = student.lesson_progress.select_related('lesson').all()
+def progress_overview(request):
+    # Get every student and their progress records
+    students = Student.objects.all()
 
-    # Filter completed lessons
-    completed = progress_records.filter(completed=True)
+    student_data = []
 
-    # Prepare grade distribution for chart
-    grades = [rec.grade for rec in completed if rec.grade is not None]
-    grade_counts = {
-        'A (80-100)': sum(1 for g in grades if g >= 80),
-        'B (60-79)': sum(1 for g in grades if 60 <= g < 80),
-        'C (40-59)': sum(1 for g in grades if 40 <= g < 60),
-        'D (<40)': sum(1 for g in grades if g < 40),
-    }
+    for student in students:
+        # Get all progress records for each student
+        progress_records = student.lesson_progress.select_related('lesson').all()
+        completed = progress_records.filter(completed=True)
 
-    context = {
-        'student': student,
-        'progress_records': progress_records,
-        'completed': completed,
-        'grade_counts': grade_counts
-    }
-    return render(request, 'core/progress.html', context)
+        # Calculate grades for summary
+        grades = [rec.grade for rec in completed if rec.grade is not None]
+
+        grade_counts = {
+            'A (80-100)': sum(1 for g in grades if g >= 80),
+            'B (60-79)': sum(1 for g in grades if 60 <= g < 80),
+            'C (40-59)': sum(1 for g in grades if 40 <= g < 60),
+            'D (<40)': sum(1 for g in grades if g < 40),
+        }
+
+        student_data.append({
+            'student': student,
+            'progress': progress_records,
+            'completed': completed,
+            'grade_counts': grade_counts
+        })
+
+    return render(request, 'core/progress.html', {
+        'students_data': student_data
+    })

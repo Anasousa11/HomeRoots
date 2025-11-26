@@ -8,7 +8,8 @@ app_name = 'core'
 urlpatterns = [
     path('', views.index, name='index'),
     path('lessons/', views.lessons, name='lessons'),
-    path('progress/', views.progress_overview, name='progress_overview'),
+    path("progress/", views.progress_overview, name="progress"),
+
     path('contact/', views.contact, name='contact'),
 
     # Students landing page

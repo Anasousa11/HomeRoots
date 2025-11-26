@@ -7,16 +7,16 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     # Students
-    path('students/', views.students_dashboard, name='students_dashboard'),
-    path('students/list/', views.StudentListView.as_view(), name='students'),
+    path('students/', views.students_dashboard, name='students'),
+    path('students/list/', views.StudentListView.as_view(), name='student_list'),
     path('students/add/', views.StudentCreateView.as_view(), name='student_add'),
     path('students/<int:pk>/', views.StudentDetailView.as_view(), name='student_detail'),
     path('students/<int:pk>/edit/', views.StudentUpdateView.as_view(), name='student_edit'),
     path('students/<int:pk>/delete/', views.StudentDeleteView.as_view(), name='student_delete'),
 
     # Lessons
-    path('lessons/', views.lessons_dashboard, name='lessons_dashboard'),
-    path('lessons/list/', views.LessonListView.as_view(), name='lessons'),
+    path('lessons/', views.lessons_dashboard, name='lessons'),    
+    path('lessons/list/', views.LessonListView.as_view(), name='lesson_list'), 
     path('lessons/add/', views.LessonCreateView.as_view(), name='lesson_add'),
     path('lessons/<int:pk>/', views.LessonDetailView.as_view(), name='lesson_detail'),
     path('lessons/<int:pk>/edit/', views.LessonUpdateView.as_view(), name='lesson_edit'),

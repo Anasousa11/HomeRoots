@@ -92,6 +92,6 @@ def progress_overview(request):
             'completed': progress_records,
         })
 
-    return render(request, 'core/progress.html', {
+    return render(request, 'core/progress/overview.html', {
         'students_data': students_data
     })

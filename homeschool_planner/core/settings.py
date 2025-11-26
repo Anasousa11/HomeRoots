@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
-    'homeschool_planner.core',
 ]
 # Media files
 MEDIA_URL = '/media/'

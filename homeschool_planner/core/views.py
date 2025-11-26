@@ -4,21 +4,25 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from .models import Student, Lesson, LessonProgress
 from .forms import StudentForm, LessonForm
-from collections import Counter
 import json
 
-def index(request):
-    return render(request, 'core/index.html')
+# -----------------------------------------
+# DASHBOARD VIEWS
+# -----------------------------------------
+def students_dashboard(request):
+    return render(request, 'core/students/dashboard.html')
+
+def lessons_dashboard(request):
+    return render(request, 'core/lessons/dashboard.html')
 
 
-def contact(request):
-    return render(request, 'core/contact.html')
-
-# Student Views
+# -----------------------------------------
+# STUDENT VIEWS
+# -----------------------------------------
 class StudentListView(ListView):
     model = Student
     template_name = 'core/students/list.html'
-    context_object_name = 'students'   
+    context_object_name = 'students'
     paginate_by = 12
 
 class StudentDetailView(DetailView):
@@ -41,18 +45,17 @@ class StudentDeleteView(DeleteView):
     template_name = 'core/students/confirm-delete.html'
     success_url = reverse_lazy('core:students')
 
-# Lesson Views
+
+# -----------------------------------------
+# LESSON VIEWS
+# -----------------------------------------
 class LessonListView(ListView):
     model = Lesson
     template_name = 'core/lessons/list.html'
-    context_object_name = 'lessons'   
+    context_object_name = 'lessons'
     paginate_by = 10
 
 class LessonDetailView(DetailView):
-    model = Lesson
-    template_name = 'core/lessons/detail.html'
-    context_object_name = 'lesson'
-
     model = Lesson
     template_name = 'core/lessons/detail.html'
     context_object_name = 'lesson'
@@ -72,20 +75,21 @@ class LessonDeleteView(DeleteView):
     template_name = 'core/lessons/confirm-delete.html'
     success_url = reverse_lazy('core:lessons')
 
-# Progress View
+
+# -----------------------------------------
+# PROGRESS VIEW
+# -----------------------------------------
 def progress_overview(request):
     students = Student.objects.all()
     students_data = []
 
     for student in students:
-        # Get all completed lessons
         completed_records = LessonProgress.objects.filter(
             student=student,
             completed=True
         ).select_related('lesson')
 
-        # Build grade distribution for charts
-        grades = [rec.grade for rec in completed_records if rec.grade is not None]
+        grades = [r.grade for r in completed_records if r.grade is not None]
 
         grade_counts = {
             'A (80-100)': sum(1 for g in grades if g >= 80),
@@ -94,14 +98,11 @@ def progress_overview(request):
             'D (<40)': sum(1 for g in grades if g < 40),
         }
 
-        labels = list(grade_counts.keys())
-        data = list(grade_counts.values())
-
         students_data.append({
             'student': student,
             'completed': completed_records,
-            'labels': json.dumps(labels),
-            'data': json.dumps(data),
+            'labels': json.dumps(list(grade_counts.keys())),
+            'data': json.dumps(list(grade_counts.values()))
         })
 
     return render(request, 'core/progress/overview.html', {

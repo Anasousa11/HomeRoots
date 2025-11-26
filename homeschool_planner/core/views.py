@@ -5,6 +5,14 @@ from django.urls import reverse_lazy
 from .models import Student, Lesson, LessonProgress
 from .forms import StudentForm, LessonForm
 import json
+ 
+
+def index(request):
+    return render(request, 'core/index.html')
+
+def contact(request):
+    return render(request, 'core/contact.html')
+
 
 # -----------------------------------------
 # DASHBOARD VIEWS

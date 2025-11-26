@@ -74,9 +74,11 @@ def progress_overview(request):
     students_data = []
 
     for student in students:
-        progress_records = LessonProgress.objects.filter(student=student, completed=True)
+        # Completed lessons
+        completed = LessonProgress.objects.filter(student=student, completed=True)
 
-        grades = [rec.grade for rec in progress_records if rec.grade is not None]
+        # Grades for chart
+        grades = [rec.grade for rec in completed if rec.grade is not None]
 
         grade_counts = {
             'A (80-100)': sum(1 for g in grades if g >= 80),
@@ -85,11 +87,14 @@ def progress_overview(request):
             'D (<40)': sum(1 for g in grades if g < 40),
         }
 
+        labels = list(grade_counts.keys())
+        data = list(grade_counts.values())
+
         students_data.append({
             'student': student,
-            'grade_labels': json.dumps(list(grade_counts.keys())),
-            'grade_values': json.dumps(list(grade_counts.values())),
-            'completed': progress_records,
+            'completed': completed,
+            'labels': json.dumps(labels),
+            'data': json.dumps(data),
         })
 
     return render(request, 'core/progress/overview.html', {

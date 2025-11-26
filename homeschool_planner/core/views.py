@@ -18,13 +18,13 @@ def contact(request):
 class StudentListView(ListView):
     model = Student
     template_name = 'core/students/list.html'
-    context_object_name = 'students'
+    context_object_name = 'students'   
     paginate_by = 12
 
 class StudentDetailView(DetailView):
     model = Student
     template_name = 'core/students/detail.html'
-    context_object_name = 'students'
+    context_object_name = 'student'
 
 class StudentCreateView(CreateView):
     model = Student
@@ -45,13 +45,17 @@ class StudentDeleteView(DeleteView):
 class LessonListView(ListView):
     model = Lesson
     template_name = 'core/lessons/list.html'
-    context_object_name = 'lessons'
+    context_object_name = 'lessons'   
     paginate_by = 10
 
 class LessonDetailView(DetailView):
     model = Lesson
     template_name = 'core/lessons/detail.html'
-    context_object_name = 'lessons'
+    context_object_name = 'lesson'
+
+    model = Lesson
+    template_name = 'core/lessons/detail.html'
+    context_object_name = 'lesson'
 
 class LessonCreateView(CreateView):
     model = Lesson
@@ -74,11 +78,14 @@ def progress_overview(request):
     students_data = []
 
     for student in students:
-        # Completed lessons
-        completed = LessonProgress.objects.filter(student=student, completed=True)
+        # Get all completed lessons
+        completed_records = LessonProgress.objects.filter(
+            student=student,
+            completed=True
+        ).select_related('lesson')
 
-        # Grades for chart
-        grades = [rec.grade for rec in completed if rec.grade is not None]
+        # Build grade distribution for charts
+        grades = [rec.grade for rec in completed_records if rec.grade is not None]
 
         grade_counts = {
             'A (80-100)': sum(1 for g in grades if g >= 80),
@@ -92,7 +99,7 @@ def progress_overview(request):
 
         students_data.append({
             'student': student,
-            'completed': completed,
+            'completed': completed_records,
             'labels': json.dumps(labels),
             'data': json.dumps(data),
         })

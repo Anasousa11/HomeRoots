@@ -2,17 +2,14 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Student, Lesson
+from .models import Student, Lesson, LessonProgress
 from .forms import StudentForm, LessonForm
+from collections import Counter
+import json
 
 def index(request):
     return render(request, 'core/index.html')
-def students(request):
-    return render(request, 'core/students.html')
-def lessons(request):
-    return render(request, 'core/lessons.html')
-def progress(request):
-    return render(request, 'core/progress.html')
+
 def contact(request):
     return render(request, 'core/contact.html')
 
@@ -43,7 +40,6 @@ class StudentDeleteView(DeleteView):
     template_name = 'core/students/confirm-delete.html'
     success_url = reverse_lazy('core:students')
 
-
 # Lesson Views
 class LessonListView(ListView):
     model = Lesson
@@ -70,24 +66,16 @@ class LessonDeleteView(DeleteView):
     model = Lesson
     template_name = 'core/lessons/confirm-delete.html'
     success_url = reverse_lazy('core:lessons')
-    
-    # progress views.py
-from django.shortcuts import render
-from .models import Student, LessonProgress
 
+# Progress View
 def progress_overview(request):
-    # Get every student and their progress records
     students = Student.objects.all()
-
-    student_data = []
+    students_data = []
 
     for student in students:
-        # Get all progress records for each student
-        progress_records = student.lesson_progress.select_related('lesson').all()
-        completed = progress_records.filter(completed=True)
+        progress_records = LessonProgress.objects.filter(student=student, completed=True)
 
-        # Calculate grades for summary
-        grades = [rec.grade for rec in completed if rec.grade is not None]
+        grades = [rec.grade for rec in progress_records if rec.grade is not None]
 
         grade_counts = {
             'A (80-100)': sum(1 for g in grades if g >= 80),
@@ -96,13 +84,13 @@ def progress_overview(request):
             'D (<40)': sum(1 for g in grades if g < 40),
         }
 
-        student_data.append({
+        students_data.append({
             'student': student,
-            'progress': progress_records,
-            'completed': completed,
-            'grade_counts': grade_counts
+            'grade_labels': json.dumps(list(grade_counts.keys())),
+            'grade_values': json.dumps(list(grade_counts.values())),
+            'completed': progress_records,
         })
 
     return render(request, 'core/progress.html', {
-        'students_data': student_data
+        'students_data': students_data
     })

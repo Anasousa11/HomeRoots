@@ -10,8 +10,7 @@ import json
 def index(request):
     return render(request, 'core/index.html')
 
-def contact(request):
-    return render(request, 'core/contact.html')
+
 
 # Student Views
 class StudentListView(ListView):
@@ -23,7 +22,7 @@ class StudentListView(ListView):
 class StudentDetailView(DetailView):
     model = Student
     template_name = 'core/students/detail.html'
-    context_object_name = 'student'
+    context_object_name = 'students'
 
 class StudentCreateView(CreateView):
     model = Student
@@ -50,7 +49,7 @@ class LessonListView(ListView):
 class LessonDetailView(DetailView):
     model = Lesson
     template_name = 'core/lessons/detail.html'
-    context_object_name = 'lesson'
+    context_object_name = 'lessons'
 
 class LessonCreateView(CreateView):
     model = Lesson

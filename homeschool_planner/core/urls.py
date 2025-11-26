@@ -22,4 +22,6 @@ urlpatterns = [
 
     # Progress (if you have a view for it)
     path('progress/', views.progress_overview, name='progress_overview'),
+
+    path('contact/', views.contact, name='contact'),
 ]

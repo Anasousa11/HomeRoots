@@ -137,3 +137,49 @@ def mark_lesson_completed(request, student_id, lesson_id):
     # If accessed via GET by mistake, just go back
     return redirect("core:student_progress", student_id=student.id)
 
+def student_progress(request, student_id):
+    """
+    Per-student progress dashboard:
+    - Unassigned lessons
+    - Assigned but not completed
+    - Completed lessons with grades
+    - Line chart of grades
+    """
+    student = get_object_or_404(Student, pk=student_id)
+
+    # All LessonProgress rows for this student
+    assigned_qs = LessonProgress.objects.filter(
+        student=student
+    ).select_related("lesson")
+
+    # Split into pending + completed
+    pending = assigned_qs.filter(completed=False)
+    completed = assigned_qs.filter(completed=True).order_by(
+        "completed_at",
+        "lesson__lesson_date",
+        "lesson__created_at"
+    )
+
+    # Lessons with NO progress entries → unassigned
+    unassigned_lessons = Lesson.objects.exclude(
+        student_progress__student=student
+    )
+
+    # Only completed with grades
+    completed_with_grade = completed.exclude(grade__isnull=True)
+    grades = [rec.grade for rec in completed_with_grade]
+
+    overall_grade = round(sum(grades) / len(grades), 1) if grades else None
+
+    chart_labels = [rec.lesson.title for rec in completed_with_grade]
+    chart_data = grades
+
+    return render(request, "core/progress/student_progress.html", {
+        "student": student,
+        "pending": pending,
+        "completed": completed,
+        "unassigned_lessons": unassigned_lessons,
+        "overall_grade": overall_grade,
+        "chart_labels": json.dumps(chart_labels),
+        "chart_data": json.dumps(chart_data),
+    })

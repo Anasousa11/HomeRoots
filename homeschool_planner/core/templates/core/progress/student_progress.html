@@ -243,3 +243,54 @@
   </div>
 
 </div>
+{% if chart_data and chart_data != "[]" %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    const labels = {{ chart_labels|safe }};
+    const data = {{ chart_data|safe }};
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Grade (%)',
+          data: data,
+          borderColor: '#8BAE8C',
+          backgroundColor: 'rgba(139, 174, 140, 0.2)',
+          borderWidth: 2,
+          tension: 0.3,
+          pointRadius: 4,
+          pointBackgroundColor: '#264f36'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            suggestedMax: 100,
+            title: {
+              display: true,
+              text: 'Grade (%)'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Lesson'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+  </script>
+{% endif %}
+
+{% endblock %}

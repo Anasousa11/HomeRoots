@@ -182,25 +182,20 @@ def student_progress(request, student_id):
         "chart_data": json.dumps(chart_data),
     })
 
+
 def contact(request):
-    """
-    Contact form that sends an email via Gmail SMTP.
-    """
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
-        message_text = request.POST.get("message")
+        message = request.POST.get("message")
 
-        subject = f"New Contact Message from {name}"
-        body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message_text}"
+        full_message = f"From: {name}\nEmail: {email}\n\nMessage:\n{message}"
 
-        # Send email to your Gmail
         send_mail(
-            subject,
-            body,
-            email,  # from user's email
-            ["anasousa11081619@gmail.com"],  # YOUR Gmail (same as EMAIL_HOST_USER)
-            fail_silently=False,
+            subject="New Contact Form Submission",
+            message=full_message,
+            from_email=email,
+            recipient_list=["anasousa11081619@gmail.com"],  # shows in console
         )
 
         messages.success(request, "Your message has been sent successfully!")

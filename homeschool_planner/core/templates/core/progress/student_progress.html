@@ -54,3 +54,25 @@
       </div>
     </div>
   </div>
+<!-- Assigned but not completed -->
+  <div class="mb-5">
+    <h4 class="mb-3" style="color: #264f36;">Assigned but Not Completed</h4>
+    {% if pending %}
+      <div class="card border-0 shadow-sm">
+        <div class="card-body table-responsive">
+          <table class="table mb-0 align-middle">
+            <thead>
+              <tr>
+                <th>Lesson</th>
+                <th>Subject</th>
+                <th>Level</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in pending %}
+              <tr>
+                <td>{{ p.lesson.title }}</td>
+                <td>{{ p.lesson.get_subject_display }}</td>
+                <td>{{ p.lesson.get_level_display }}</td>
+                <td class="text-end">

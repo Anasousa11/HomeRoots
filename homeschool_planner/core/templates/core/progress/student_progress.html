@@ -86,3 +86,71 @@
                   </button>
                 </td>
               </tr>
+              <!-- Bootstrap Modal for this lesson -->
+              <div class="modal fade"
+                   id="completeModal-{{ p.lesson.id }}"
+                   tabindex="-1"
+                   aria-labelledby="completeModalLabel-{{ p.lesson.id }}"
+                   aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="completeModalLabel-{{ p.lesson.id }}">
+                        Mark "{{ p.lesson.title }}" as Completed
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post"
+                          action="{% url 'core:mark_lesson_completed' student.id p.lesson.id %}">
+                      {% csrf_token %}
+                      <div class="modal-body">
+                        <p class="mb-2">
+                          <strong>Student:</strong>
+                          {{ student.first_name }} {{ student.last_name }}
+                        </p>
+                        <p class="mb-3">
+                          <strong>Lesson:</strong>
+                          {{ p.lesson.title }} ({{ p.lesson.get_subject_display }})
+                        </p>
+
+                        <div class="mb-3">
+                          <label for="grade-{{ p.lesson.id }}" class="form-label">
+                            Grade (0–100, optional)
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="grade-{{ p.lesson.id }}"
+                            name="grade"
+                            min="0"
+                            max="100"
+                            placeholder="e.g. 85">
+                          <div class="form-text">
+                            Leave blank if you just want to mark it as completed.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">
+                          Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                          ✅ Mark as Completed
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-muted">No assigned lessons are currently pending.</p>
+    {% endif %}
+  </div>

@@ -86,88 +86,8 @@ class LessonDeleteView(DeleteView):
     success_url = reverse_lazy('core:lessons')
 
 
-# -----------------------------------------
+
 # PROGRESS VIEW
-# -----------------------------------------
-def progress_overview(request):
-    students = Student.objects.all()
-    students_data = []
-
-    for student in students:
-        completed_records = LessonProgress.objects.filter(
-            student=student,
-            completed=True
-        ).select_related('lesson')
-
-        grades = [r.grade for r in completed_records if r.grade is not None]
-
-        grade_counts = {
-            'A (80-100)': sum(1 for g in grades if g >= 80),
-            'B (60-79)': sum(1 for g in grades if 60 <= g < 80),
-            'C (40-59)': sum(1 for g in grades if 40 <= g < 60),
-            'D (<40)': sum(1 for g in grades if g < 40),
-        }
-
-        students_data.append({
-            'student': student,
-            'completed': completed_records,
-            'labels': json.dumps(list(grade_counts.keys())),
-            'data': json.dumps(list(grade_counts.values()))
-        })
-
-    return render(request, 'core/progress/overview.html', {
-        'students_data': students_data
-    })
-    def student_progress(request, student_id):
-    """
-    Per-student progress dashboard:
-    - Unassigned lessons
-    - Assigned but not completed
-    - Completed lessons with grades
-    - Line chart of grades
-    """
-    student = get_object_or_404(Student, pk=student_id)
-
-    # All LessonProgress rows for this student
-    assigned_qs = LessonProgress.objects.filter(
-        student=student
-    ).select_related("lesson")
-
-    # Split into pending + completed
-    pending = assigned_qs.filter(completed=False)
-    completed = assigned_qs.filter(completed=True).order_by(
-        "completed_at",
-        "lesson__lesson_date",
-        "lesson__created_at"
-    )
-
-    # Lessons that have NO LessonProgress for this student = unassigned
-    unassigned_lessons = Lesson.objects.exclude(
-        student_progress__student=student
-    )
-
-    # Only completed with a grade for averages + chart
-    completed_with_grade = completed.exclude(grade__isnull=True)
-
-    grades = [rec.grade for rec in completed_with_grade]
-    overall_grade = round(sum(grades) / len(grades), 1) if grades else None
-
-    # Chart data: grade per completed lesson
-    chart_labels = [
-        rec.lesson.title for rec in completed_with_grade
-    ]
-    chart_data = grades
-
-    context = {
-        "student": student,
-        "pending": pending,
-        "completed": completed,
-        "unassigned_lessons": unassigned_lessons,
-        "overall_grade": overall_grade,
-        "chart_labels": json.dumps(chart_labels),
-        "chart_data": json.dumps(chart_data),
-    }
-    return render(request, "core/progress/student_progress.html", context)
 
 
 def assign_lesson(request, student_id, lesson_id):

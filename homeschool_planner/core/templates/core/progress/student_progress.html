@@ -193,3 +193,53 @@
       </p>
     {% endif %}
   </div>
+  <!-- Completed Lessons -->
+  <div class="mb-5">
+    <h4 class="mb-3" style="color: #264f36;">Completed Lessons</h4>
+    {% if completed %}
+      <div class="card border-0 shadow-sm">
+        <div class="card-body table-responsive">
+          <table class="table mb-0 align-middle">
+            <thead>
+              <tr>
+                <th>Lesson</th>
+                <th>Subject</th>
+                <th>Level</th>
+                <th>Grade</th>
+                <th>Completed At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in completed %}
+              <tr>
+                <td>{{ c.lesson.title }}</td>
+                <td>{{ c.lesson.get_subject_display }}</td>
+                <td>{{ c.lesson.get_level_display }}</td>
+                <td>
+                  {% if c.grade is not None %}
+                    {{ c.grade }}%
+                  {% else %}
+                    <span class="text-muted">N/A</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if c.completed_at %}
+                    {{ c.completed_at|date:"d M Y H:i" }}
+                  {% else %}
+                    <span class="text-muted">N/A</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-muted">
+        No lessons have been completed yet for this student.
+      </p>
+    {% endif %}
+  </div>
+
+</div>

@@ -6,6 +6,7 @@ from django.utils import timezone
 from .models import Student, Lesson, LessonProgress
 from .forms import StudentForm, LessonForm
 from django.contrib import messages
+from django.core.mail import send_mail
 import json
 
  
@@ -183,18 +184,26 @@ def student_progress(request, student_id):
 
 def contact(request):
     """
-    Simple contact form:
-    - User fills name, email, message
-    - Saves nothing, just displays a success message
+    Contact form that sends an email via Gmail SMTP.
     """
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
-        message = request.POST.get("message")
+        message_text = request.POST.get("message")
 
-        # Show success message
-        messages.success(request, "Your message has been sent! We will get back to you soon.")
+        subject = f"New Contact Message from {name}"
+        body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message_text}"
 
+        # Send email to your Gmail
+        send_mail(
+            subject,
+            body,
+            email,  # from user's email
+            ["anasousa11081619@gmail.com"],  # YOUR Gmail (same as EMAIL_HOST_USER)
+            fail_silently=False,
+        )
+
+        messages.success(request, "Your message has been sent successfully!")
         return redirect("core:contact")
 
     return render(request, "core/contact.html")

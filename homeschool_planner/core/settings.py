@@ -136,4 +136,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "anasousa11081619@gmail.com"
 
 # App Password (not your real Gmail password)
-EMAIL_HOST_PASSWORD = "PINEAPPLE1108"
+EMAIL_HOST_PASSWORD = "heuu hhzm lxae ugxu"

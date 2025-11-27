@@ -5,15 +5,17 @@
     <div class="hero-content text-center">
         <h2>Organize and Inspire Your Homeschool Journey</h2>
         <p>Track lessons, monitor progress, and celebrate growth — all in one place.</p>
-        <a href="#" class="btn btn-success mt-3">Start Planning</a>
+
+    
+        <a href="{% url 'core:students_dashboard' %}" class="btn btn-success mt-3">Start Planning</a>
     </div>
 </section>
 
-    
-<!--Features-->
+<!-- Features -->
 <section class="features" style="padding-top: 100px; padding-bottom: 100px;">
     <div class="container">
         <h3>Everything You Need in One Place</h3>
+
         <div class="feature-grid">
             <div class="feature-card">
                 <div class="icon">🧒</div>
@@ -35,13 +37,15 @@
                 <h4>Simple Dashboard</h4>
                 <p>Get an instant overview of your week’s activities at a glance.</p>
             </div>
-            </div>
         </div>
-    </section>
-    <!-- TESTIMONIALS -->
-    <section class="testimonials" style="padding: 20px 0;">
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" style="padding: 20px 0;">
     <div class="container">
         <h3>What Families Are Saying</h3>
+
         <div class="row g-4 justify-content-center">
             <div class="col-md-5">
                 <div class="card h-100 shadow-sm">
@@ -55,6 +59,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-5">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body text-center">
@@ -69,13 +74,17 @@
             </div>
         </div>
     </div>
-    </section>
-    <!-- CTA SECTION -->
-    <section class="cta" style="padding: 100px 0;">
-    <div class="container cta-box">
+</section>
+
+<!-- CTA -->
+<section class="cta" style="padding: 100px 0;">
+    <div class="container cta-box text-center">
         <h3>Ready to Transform Your Homeschool Experience?</h3>
         <p>Join hundreds of families finding calm and structure with HomeRoots.</p>
-        <a href="#" class="btn-primary">Get Started</a>
+
+    
+
+        <a href="{% url 'core:students_dashboard' %}" class="btn-primary">Get Started</a>
     </div>
-    </section>
+</section>
 {% endblock %}

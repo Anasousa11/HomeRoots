@@ -49,7 +49,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:progress_overview' %}">Progress</a>
+                    <a class="nav-link" href="{% url 'core:student_progress' student_id=1 %}">Progress</a>
                 </li>
   
                 <li class="nav-item">
@@ -79,7 +79,7 @@
                 <li><a href="{% url 'core:index' %}">Home</a></li>
                 <li><a href="{% url 'core:students' %}">Students</a></li>
                 <li><a href="{% url 'core:lessons' %}">Lessons</a></li>
-                <li><a href="{% url 'core:progress_overview' %}">Progress</a></li>
+                <li><a href="{% url 'core:student_progress' student_id=1 %}">Progress</a></li>
                 <li><a href="{% url 'core:contact' %}">Contact</a></li>
             </ul>
         </div>

@@ -76,3 +76,13 @@
                 <td>{{ p.lesson.get_subject_display }}</td>
                 <td>{{ p.lesson.get_level_display }}</td>
                 <td class="text-end">
+                    <!-- Button triggers modal -->
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#completeModal-{{ p.lesson.id }}">
+                    Mark Completed
+                  </button>
+                </td>
+              </tr>

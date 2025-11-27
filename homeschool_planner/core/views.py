@@ -5,15 +5,12 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from .models import Student, Lesson, LessonProgress
 from .forms import StudentForm, LessonForm
+from django.contrib import messages
 import json
 
  
-
 def index(request):
     return render(request, 'core/index.html')
-
-def contact(request):
-    return render(request, 'core/contact.html')
 
 
 # -----------------------------------------
@@ -183,3 +180,21 @@ def student_progress(request, student_id):
         "chart_labels": json.dumps(chart_labels),
         "chart_data": json.dumps(chart_data),
     })
+
+def contact(request):
+    """
+    Simple contact form:
+    - User fills name, email, message
+    - Saves nothing, just displays a success message
+    """
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        # Show success message
+        messages.success(request, "Your message has been sent! We will get back to you soon.")
+
+        return redirect("core:contact")
+
+    return render(request, "core/contact.html")

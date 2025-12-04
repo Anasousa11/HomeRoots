@@ -84,24 +84,24 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 
 
 ### **Homepage**
-![Homepage Screenshot](![home](https://github.com/user-attachments/assets/5fd9a5a4-bbf3-43c8-98af-e4b85507d642)
-)
+![home](https://github.com/user-attachments/assets/5fd9a5a4-bbf3-43c8-98af-e4b85507d642)
+
 
 ### **Students Dashboard**
-![Students Dashboard Screenshot](![students](https://github.com/user-attachments/assets/1799bb99-2b3c-4ff2-95b9-4df4d1c987dc)
-)
+![students](https://github.com/user-attachments/assets/1799bb99-2b3c-4ff2-95b9-4df4d1c987dc)
+
 
 ### **Lessons Dashboard**
-![Lessons Dashboard Screenshot](![lessons](https://github.com/user-attachments/assets/5e11da6b-9a03-478a-abd3-613518b2b6d0)
-)
+![lessons](https://github.com/user-attachments/assets/5e11da6b-9a03-478a-abd3-613518b2b6d0)
+
 
 ### **Progress Tracker**
-![Progress Tracker Screenshot](![progress](https://github.com/user-attachments/assets/9d3e302c-d052-41e9-9763-9fd2af693d63)
-)
+![progress](https://github.com/user-attachments/assets/9d3e302c-d052-41e9-9763-9fd2af693d63)
+
 
 ### **Contact Page**
-![Contact Page Screenshot](![contact](https://github.com/user-attachments/assets/2182afa3-d0c6-43cd-a100-957d5504dec6)
-)
+![contact](https://github.com/user-attachments/assets/2182afa3-d0c6-43cd-a100-957d5504dec6)
+
 
 
 
@@ -240,5 +240,6 @@ This project taught me confidence, perseverance, and practical skills I will use
 Ana Samanda Dicha De Sousa
 Web Application Development – Level 5 Diploma
 GitHub: https://github.com/Anasousa11
+
 
 

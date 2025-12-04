@@ -1,1 +1,1 @@
-web: gunicorn homeroots.wsgi
+web: gunicorn homeschool_planner.wsgi

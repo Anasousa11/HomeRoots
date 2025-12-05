@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'homeschool_planner.urls'
+ROOT_URLCONF = 'homeschool_planner.homeschool_planner.urls'
 
 TEMPLATES = [
     {

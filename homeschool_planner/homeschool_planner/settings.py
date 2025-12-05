@@ -119,11 +119,12 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    BASE_DIR.parent / 'static',
+    BASE_DIR.parent / 'homeschool_planner' / 'static',
 ]
+
+STATIC_ROOT = BASE_DIR.parent / 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

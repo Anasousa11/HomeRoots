@@ -67,7 +67,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'homeschool_planner.wsgi.application'
+WSGI_APPLICATION = 'homeschool_planner.homeschool_planner.wsgi.application'
+
 
 
 # Database

@@ -117,19 +117,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-from pathlib import Path
+
 import os
+from pathlib import Path
 
 STATIC_URL = '/static/'
 
-# Your static folder is one level ABOVE BASE_DIR
-STATICFILES_DIRS = [
-    BASE_DIR.parent / 'static',
-]
-
-STATIC_ROOT = BASE_DIR.parent / 'staticfiles'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

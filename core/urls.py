@@ -1,8 +1,5 @@
 from django.urls import path
 from . import views
-from django.shortcuts import redirect
-
-
 
 app_name = 'core'
 
@@ -13,7 +10,7 @@ urlpatterns = [
     # STUDENT DASHBOARD (default student page)
     path('students/', views.students_dashboard, name='students_dashboard'),
 
-    # Student List
+    # Student List (ONLY ONE DEFINITION)
     path('students/list/', views.StudentListView.as_view(), name='students'),
 
     # Student CRUD
@@ -41,10 +38,4 @@ urlpatterns = [
 
     # CONTACT PAGE
     path('contact/', views.contact, name='contact'),
-]
-def students_list_redirect(request):
-    return redirect("core:students")
-
-urlpatterns += [
-    path("students/list/", students_list_redirect),
 ]

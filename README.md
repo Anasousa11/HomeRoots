@@ -229,18 +229,19 @@ The following viewports were tested:
 - Landscape and portrait orientations
 
 ---
-
 ## 📸 Responsive Testing Screenshots (Browser DevTools)
 
+- Homepage – Mobile View  
+<img width="300" alt="home_mobile" src="https://github.com/user-attachments/assets/30618e72-a97e-48aa-bd4d-cf7f3894b77c" />
 
+- Students Dashboard – Tablet View  
+<img width="420" alt="student_tablet" src="https://github.com/user-attachments/assets/369b4b14-1685-4f23-a56f-1177bbc8c3c9" />
 
-- Homepage – Mobile View  <img width="375" height="667" alt="home_mobile" src="https://github.com/user-attachments/assets/30618e72-a97e-48aa-bd4d-cf7f3894b77c" />
+- Lessons Dashboard – Mobile View  
+<img width="300" alt="lesson_mobile" src="https://github.com/user-attachments/assets/457349b6-2624-4e4c-95ed-7b0f14c790b6" />
 
-- Students Dashboard – Tablet View  <img width="1640" height="3116" alt="student_tablet" src="https://github.com/user-attachments/assets/369b4b14-1685-4f23-a56f-1177bbc8c3c9" />
-
-- Lessons Dashboard – Mobile View  <img width="360" height="740" alt="lesson_mobile" src="https://github.com/user-attachments/assets/457349b6-2624-4e4c-95ed-7b0f14c790b6" />
-
-- Progress Chart – Small Screen Landscape  <img width="2048" height="2732" alt="progress_ss" src="https://github.com/user-attachments/assets/19e54ee8-2413-4c28-87fa-1882ec568119" />
+- Progress Chart – Small Screen Landscape  
+<img width="500" alt="progress_ss" src="https://github.com/user-attachments/assets/19e54ee8-2413-4c28-87fa-1882ec568119" />
 
 
 
@@ -436,6 +437,7 @@ HomeRoots represents both my technical growth and a real solution to a real need
 Ana Samanda Dicha De Sousa
 Web Application Development – Level 5 Diploma
 GitHub: https://github.com/Anasousa11
+
 
 
 

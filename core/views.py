@@ -135,38 +135,20 @@ def mark_lesson_completed(request, student_id, lesson_id):
     # If accessed via GET by mistake, just go back
     return redirect("core:student_progress", student_id=student.id)
 
-def student_progress(request, student_id=None):
-    """
-    Safe per-student progress dashboard:
-    - Works even when NO students exist
-    - Auto-selects first student if none provided
-    - Avoids chart crashes
-    """
+def student_progress(request, student_id):
+    student = Student.objects.filter(pk=student_id).first()
 
-    students = Student.objects.all()
-
-    if not students.exists():
+    if not student:
         return render(request, "core/progress/student_progress.html", {
             "no_data": True
         })
-
-    
-    if student_id:
-        student = get_object_or_404(Student, pk=student_id)
-    else:
-        
-        student = students.first()
 
     assigned_qs = LessonProgress.objects.filter(
         student=student
     ).select_related("lesson")
 
     pending = assigned_qs.filter(completed=False)
-    completed = assigned_qs.filter(completed=True).order_by(
-        "completed_at",
-        "lesson__lesson_date",
-        "lesson__created_at"
-    )
+    completed = assigned_qs.filter(completed=True).order_by("-completed_at")
 
     unassigned_lessons = Lesson.objects.exclude(
         student_progress__student=student
@@ -188,7 +170,6 @@ def student_progress(request, student_id=None):
         "overall_grade": overall_grade,
         "chart_labels": json.dumps(chart_labels),
         "chart_data": json.dumps(chart_data),
-        "no_data": False
     })
 
 

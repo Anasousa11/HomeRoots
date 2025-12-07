@@ -68,15 +68,60 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 
 # 🗂 Information Architecture
 
-### **Models**
-- Student  
-- Lesson  
-- LessonProgress  
+---
 
-### **Relationships**
-- One student → many progress entries  
-- One lesson → many progress entries  
-- LessonProgress links Students and Lessons  
+# 🗃 Database Schema
+
+HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects real-world homeschooling relationships and supports full CRUD functionality.
+
+---
+
+## 📌 Student Model
+Stores individual learner information.
+
+**Fields:**
+- first_name  
+- last_name  
+- date_of_birth  
+- profile_image  
+- created_at  
+
+Each student can have multiple progress records linked to them.
+
+---
+
+## 📌 Lesson Model
+Stores lesson details.
+
+**Fields:**
+- title  
+- subject  
+- description  
+- created_at  
+
+Each lesson can be assigned to multiple students through progress records.
+
+---
+
+## 📌 LessonProgress Model
+Acts as a **junction table** between Students and Lessons.
+
+**Fields:**
+- student (ForeignKey)
+- lesson (ForeignKey)
+- status (Pending / Completed)
+- grade (0–100)
+- updated_at  
+
+---
+
+## 🔗 Relationships Summary
+
+- One **Student** → Many **LessonProgress** records  
+- One **Lesson** → Many **LessonProgress** records  
+- **LessonProgress** links both Students and Lessons together  
+
+This structure allows tracking of lesson completion and grading across multiple students.
 
 ---
 
@@ -103,40 +148,97 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 ![contact](https://github.com/user-attachments/assets/2182afa3-d0c6-43cd-a100-957d5504dec6)
 
 
-
-
 ---
 
 # 🧪 Testing
 
-### Manual Testing:
+All testing was carried out manually to verify that the application functions as expected across all core features.
 
-- Student Management
-- Add student → works
-- Edit student → works
-- Delete student → works
-- Validate required fields → works
-- Lesson Management
-- Create lesson → correct redirect
-- Edit/delete lessons → working
-- Assigned lessons appear correctly
-- Progress System
-- Assign lesson → added to pending
-- Mark lesson as completed → moves to “completed”
-- Grade saved & displayed
-- Chart updates with new data
-- Contact Form
-- Empty fields → shows error
-- Valid form → success message
-- Console displays email data
-- Dashboard Navigation
-- All navbar links tested
-- Breadcrumbs tested
-- No broken links found
+---
 
-### 📱 Responsive Testing
+## ✅ Student Management
 
-()
+| Test | Result |
+|------|--------|
+| Add student | Pass |
+| Edit student | Pass |
+| Delete student | Pass |
+| Required field validation | Pass |
+| Profile image upload | Pass |
+| Dashboard display | Pass |
+
+---
+
+## ✅ Lesson Management
+
+| Test | Result |
+|------|--------|
+| Create lesson | Pass |
+| Edit lesson | Pass |
+| Delete lesson | Pass |
+| Assign lesson to student | Pass |
+| Lesson dashboard view | Pass |
+
+---
+
+## ✅ Progress Tracking System
+
+| Test | Result |
+|------|--------|
+| Assign lesson to student | Pass |
+| Mark lesson as completed | Pass |
+| Save grade (0–100) | Pass |
+| Grade displayed correctly | Pass |
+| Chart updates dynamically | Pass |
+
+---
+
+## ✅ Contact Form
+
+| Test | Result |
+|------|--------|
+| Empty fields validation | Pass |
+| Valid submission | Pass |
+| Success message displayed | Pass |
+| Console receives message | Pass |
+
+---
+
+## ✅ Navigation & UI
+
+| Test | Result |
+|------|--------|
+| Navbar links | Pass |
+| Breadcrumb navigation | Pass |
+| No broken links | Pass |
+| Clean page transitions | Pass |
+
+- While several minor layout and configuration issues were discovered during testing, all critical functionality was successfully resolved before final submission. No major functional bugs remain in the deployed version.
+
+---
+
+# 📱 Responsive Testing
+
+All responsive testing was completed using **Chrome Browser Developer Tools** to simulate real-world screen sizes and devices.
+
+The following viewports were tested:
+
+- Mobile (iPhone SE / iPhone 12)
+- Tablet (iPad)
+- Desktop (1080p and above)
+- Landscape and portrait orientations
+
+---
+
+## 📸 Responsive Testing Screenshots (Browser DevTools)
+
+
+
+- Homepage – Mobile View  
+- Students Dashboard – Tablet View  
+- Lessons Dashboard – Mobile View  
+- Progress Chart – Small Screen Landscape  
+
 
 
 
@@ -174,20 +276,103 @@ Wireframes
 - As a user, I want to contact the site owner easily through a simple form.  
 
 ---
+---
 
-# 🎯 Assessment Criteria Coverage
+# 🚀 Deployment
 
-✔ CRUD functionality (students & lessons)  
-✔ Relational database with appropriate models  
-✔ Django templates & front-end structure  
-✔ Routing & URL configuration  
-✔ Data visualisation using Chart.js  
-✔ Contact form (Django messages)  
-✔ UX considerations & responsive design  
-✔ Complete README documentation  
-✔ Wireframes & screenshots 
+HomeRoots was deployed using **Heroku** to demonstrate a complete real-world development workflow from local development to live cloud hosting. This ensured the project met the requirement for deploying a full-stack web application to a production environment and verifying that it matched the development version.
+
+The deployment process helped me understand real production workflows used in industry including environment configuration, version control, and secure handling of sensitive settings.
 
 ---
+
+## ✅ Pre-Deployment Setup
+
+Before deployment, the following production configurations were completed:
+
+- `DEBUG` set to `False`
+- `ALLOWED_HOSTS` updated to include the Heroku app domain  
+- Static file handling configured using **WhiteNoise**  
+- **Gunicorn** added as the production web server  
+- `requirements.txt`, `Procfile`, and `runtime.txt` created  
+- Environment variables used to protect sensitive settings  
+- Final code reviewed to ensure:  
+  - No commented-out production code  
+  - No broken internal links  
+  - No secret keys pushed to GitHub  
+
+---
+
+## ✅ Step-by-Step Deployment Process (Heroku)
+
+1. **Login to Heroku**
+
+- heroku login
+
+2. **Create the Heroku Application**
+
+
+- heroku create homeroot
+
+3. **Set Python Buildpack**
+
+- heroku buildpacks:set heroku/python
+
+4. **Push the Project to Heroku**
+
+
+- git add .
+- git commit -m "Initial production deployment"
+- git push heroku main
+
+5. **Apply Database Migrations**
+
+- heroku run python manage.py migrate
+
+6. **Collect Static Files**
+
+
+- heroku run python manage.py collectstatic
+
+7. **Create Superuser (Admin Access)**
+
+
+- heroku run python manage.py createsuperuser
+---
+After these steps, the application was successfully deployed and rendered live on the Heroku cloud platform.
+---
+## 🌍 Live Deployment Link
+The deployed version of HomeRoots is available here:
+
+🔗 https://homeroot-e8a349dd181e.herokuapp.com/
+
+The deployed site was tested to ensure it matched the development environment in both functionality and design.
+
+## Production Security Checks
+- DEBUG disabled in production
+
+- Secret keys secured using environment variables
+
+- Database credentials never stored in GitHub
+
+- Django security headers enabled
+
+- Iframe embedding protection enabled
+
+- GitHub repository contains no sensitive data
+---
+
+# 📝 Assessment Criteria Alignment
+
+✔ Full CRUD functionality  
+✔ Relational database design  
+✔ Secure cloud deployment  
+✔ Django framework conventions  
+✔ Responsive front-end  
+✔ Manual testing documentation  
+✔ Version control using GitHub  
+✔ Security practices applied  
+✔ Professional documentation  
 
 # 📚 Credits & Sources
 
@@ -224,18 +409,23 @@ I hope to extend this app with:
 
 ---
 
+
 # 💬 Reflection
 
-Building HomeRoots was both an academic challenge and a personal accomplishment.  
-It helped me solve a real problem I faced as a homeschooling mother: staying organised while teaching children at different levels.
+Building HomeRoots was one of the most challenging but rewarding projects I have worked on so far. Balancing this project alongside parenting three young children made time management extremely difficult, but it also reinforced why this project mattered so much to me personally.
 
-I learned how to structure a web application, build multiple interconnected models, design a theme, and debug problems I initially thought were impossible.
+During development, I faced several serious delays and was granted an official extension to complete the project. One of the biggest obstacles was ongoing technical issues with my original laptop, which significantly slowed my progress. After researching the most suitable laptop for programming and development, I made the decision to purchase a new one on the official submission date so that I could finally complete, deploy, and submit the project properly.
 
-This project taught me confidence, perseverance, and practical skills I will use in real life.
+Although these challenges caused unavoidable delays, I remained committed to finishing HomeRoots to the best of my ability. Completing this project under such difficult circumstances has made the achievement even more meaningful to me.
+
+This project helped me fully understand how a full-stack web application works — from database modelling and CRUD logic to templates, deployment, and debugging live errors. Some issues initially felt impossible to solve, but working through them built my confidence and strengthened my problem-solving skills.
+
+HomeRoots represents both my technical growth and a real solution to a real need in my own life. The skills I’ve gained from this project will strongly influence how I approach future development work.
 
 
 
-👩‍💻 Author
+
+# 👩‍💻 Author
 
 Ana Samanda Dicha De Sousa
 Web Application Development – Level 5 Diploma

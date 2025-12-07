@@ -213,7 +213,7 @@ All testing was carried out manually to verify that the application functions as
 | No broken links | Pass |
 | Clean page transitions | Pass |
 
-- While several minor layout and configuration issues were discovered during testing, all critical functionality was successfully resolved before final submission. No major functional bugs remain in the deployed version.
+- While several minor layout and configuration issues were discovered during testing, no major functional bugs remain in the deployed version.
 
 ---
 
@@ -234,10 +234,14 @@ The following viewports were tested:
 
 
 
-- Homepage – Mobile View  
-- Students Dashboard – Tablet View  
-- Lessons Dashboard – Mobile View  
-- Progress Chart – Small Screen Landscape  
+- Homepage – Mobile View  <img width="750" height="5564" alt="home_mobile" src="https://github.com/user-attachments/assets/30618e72-a97e-48aa-bd4d-cf7f3894b77c" />
+
+- Students Dashboard – Tablet View  <img width="1640" height="3116" alt="student_tablet" src="https://github.com/user-attachments/assets/369b4b14-1685-4f23-a56f-1177bbc8c3c9" />
+
+- Lessons Dashboard – Mobile View  <img width="1082" height="9203" alt="lesson_mobile" src="https://github.com/user-attachments/assets/457349b6-2624-4e4c-95ed-7b0f14c790b6" />
+
+- Progress Chart – Small Screen Landscape  <img width="2048" height="2732" alt="progress_ss" src="https://github.com/user-attachments/assets/19e54ee8-2413-4c28-87fa-1882ec568119" />
+
 
 
 
@@ -246,6 +250,7 @@ The following viewports were tested:
 #### HTML Validation
 
 Tested using W3C HTML Validator
+![html_validator](https://github.com/user-attachments/assets/79f5492e-bc92-45c4-bc48-a40b7b2276a4)
 
 ✔ No major structural errors
 ✔ Minor warnings ignored (Bootstrap-related)
@@ -253,6 +258,7 @@ Tested using W3C HTML Validator
 #### CSS Validation
 
 Tested using W3C CSS Jigsaw
+![css_validator](https://github.com/user-attachments/assets/59d77a19-2885-4413-a967-cde1183c3e23)
 
 ✔ Pass – no invalid rules
 
@@ -430,6 +436,7 @@ HomeRoots represents both my technical growth and a real solution to a real need
 Ana Samanda Dicha De Sousa
 Web Application Development – Level 5 Diploma
 GitHub: https://github.com/Anasousa11
+
 
 
 

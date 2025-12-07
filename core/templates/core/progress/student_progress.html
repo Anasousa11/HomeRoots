@@ -1,6 +1,16 @@
 {% extends 'core/base.html' %}
 {% block content %}
 
+{% if no_data %}
+<div class="container py-5">
+  <div class="alert alert-info text-center mt-5">
+      <h4>No progress data yet</h4>
+      <p>Add a student and lessons to start tracking progress.</p>
+  </div>
+</div>
+
+{% else %}
+
 <div class="container py-5">
 
   <!-- Header -->
@@ -17,6 +27,7 @@
       ← Back to Student Profile
     </a>
   </div>
+
   <!-- Summary + Chart -->
   <div class="row g-4 mb-5">
     <div class="col-md-4">
@@ -54,243 +65,75 @@
       </div>
     </div>
   </div>
-<!-- Assigned but not completed -->
+
+  <!-- Assigned but not completed -->
   <div class="mb-5">
     <h4 class="mb-3" style="color: #264f36;">Assigned but Not Completed</h4>
+
     {% if pending %}
-      <div class="card border-0 shadow-sm">
-        <div class="card-body table-responsive">
-          <table class="table mb-0 align-middle">
-            <thead>
-              <tr>
-                <th>Lesson</th>
-                <th>Subject</th>
-                <th>Level</th>
-                <th class="text-end">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for p in pending %}
-              <tr>
-                <td>{{ p.lesson.title }}</td>
-                <td>{{ p.lesson.get_subject_display }}</td>
-                <td>{{ p.lesson.get_level_display }}</td>
-                <td class="text-end">
-                    <!-- Button triggers modal -->
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-success"
-                    data-bs-toggle="modal"
-                    data-bs-target="#completeModal-{{ p.lesson.id }}">
-                    Mark Completed
-                  </button>
-                </td>
-              </tr>
-              <!-- Bootstrap Modal for this lesson -->
-              <div class="modal fade"
-                   id="completeModal-{{ p.lesson.id }}"
-                   tabindex="-1"
-                   aria-labelledby="completeModalLabel-{{ p.lesson.id }}"
-                   aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="completeModalLabel-{{ p.lesson.id }}">
-                        Mark "{{ p.lesson.title }}" as Completed
-                      </h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="post"
-                          action="{% url 'core:mark_lesson_completed' student.id p.lesson.id %}">
-                      {% csrf_token %}
-                      <div class="modal-body">
-                        <p class="mb-2">
-                          <strong>Student:</strong>
-                          {{ student.first_name }} {{ student.last_name }}
-                        </p>
-                        <p class="mb-3">
-                          <strong>Lesson:</strong>
-                          {{ p.lesson.title }} ({{ p.lesson.get_subject_display }})
-                        </p>
-
-                        <div class="mb-3">
-                          <label for="grade-{{ p.lesson.id }}" class="form-label">
-                            Grade (0–100, optional)
-                          </label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="grade-{{ p.lesson.id }}"
-                            name="grade"
-                            min="0"
-                            max="100"
-                            placeholder="e.g. 85">
-                          <div class="form-text">
-                            Leave blank if you just want to mark it as completed.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-outline-secondary"
-                                data-bs-dismiss="modal">
-                          Cancel
-                        </button>
-                        <button type="submit" class="btn btn-success">
-                          ✅ Mark as Completed
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+    <div class="card border-0 shadow-sm">
+      <div class="card-body table-responsive">
+        <table class="table mb-0 align-middle">
+          <thead>
+            <tr>
+              <th>Lesson</th>
+              <th>Subject</th>
+              <th>Level</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in pending %}
+            <tr>
+              <td>{{ p.lesson.title }}</td>
+              <td>{{ p.lesson.get_subject_display }}</td>
+              <td>{{ p.lesson.get_level_display }}</td>
+              <td class="text-end">
+                <button type="button"
+                        class="btn btn-sm btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#completeModal-{{ p.lesson.id }}">
+                  Mark Completed
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
+    </div>
     {% else %}
       <p class="text-muted">No assigned lessons are currently pending.</p>
     {% endif %}
   </div>
-  <!-- Unassigned Lessons -->
-  <div class="mb-5">
-    <h4 class="mb-3" style="color: #264f36;">Unassigned Lessons</h4>
-    {% if unassigned_lessons %}
-      <div class="card border-0 shadow-sm">
-        <div class="card-body table-responsive">
-          <table class="table mb-0 align-middle">
-            <thead>
-              <tr>
-                <th>Lesson</th>
-                <th>Subject</th>
-                <th>Level</th>
-                <th class="text-end">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for lesson in unassigned_lessons %}
-              <tr>
-                <td>{{ lesson.title }}</td>
-                <td>{{ lesson.get_subject_display }}</td>
-                <td>{{ lesson.get_level_display }}</td>
-                <td class="text-end">
-                  <a href="{% url 'core:assign_lesson' student.id lesson.id %}"
-                     class="btn btn-sm btn-outline-primary">
-                    Assign to {{ student.first_name }}
-                  </a>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    {% else %}
-      <p class="text-muted">
-        All lessons are already assigned to this student.
-      </p>
-    {% endif %}
-  </div>
-  <!-- Completed Lessons -->
-  <div class="mb-5">
-    <h4 class="mb-3" style="color: #264f36;">Completed Lessons</h4>
-    {% if completed %}
-      <div class="card border-0 shadow-sm">
-        <div class="card-body table-responsive">
-          <table class="table mb-0 align-middle">
-            <thead>
-              <tr>
-                <th>Lesson</th>
-                <th>Subject</th>
-                <th>Level</th>
-                <th>Grade</th>
-                <th>Completed At</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for c in completed %}
-              <tr>
-                <td>{{ c.lesson.title }}</td>
-                <td>{{ c.lesson.get_subject_display }}</td>
-                <td>{{ c.lesson.get_level_display }}</td>
-                <td>
-                  {% if c.grade is not None %}
-                    {{ c.grade }}%
-                  {% else %}
-                    <span class="text-muted">N/A</span>
-                  {% endif %}
-                </td>
-                <td>
-                  {% if c.completed_at %}
-                    {{ c.completed_at|date:"d M Y H:i" }}
-                  {% else %}
-                    <span class="text-muted">N/A</span>
-                  {% endif %}
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    {% else %}
-      <p class="text-muted">
-        No lessons have been completed yet for this student.
-      </p>
-    {% endif %}
-  </div>
 
 </div>
-{% if chart_data and chart_data != "[]" %}
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    const ctx = document.getElementById('progressChart').getContext('2d');
-    const labels = {{ chart_labels|safe }};
-    const data = {{ chart_data|safe }};
 
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Grade (%)',
-          data: data,
-          borderColor: '#8BAE8C',
-          backgroundColor: 'rgba(139, 174, 140, 0.2)',
-          borderWidth: 2,
-          tension: 0.3,
-          pointRadius: 4,
-          pointBackgroundColor: '#264f36'
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            suggestedMax: 100,
-            title: {
-              display: true,
-              text: 'Grade (%)'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Lesson'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
-      }
-    });
-  </script>
+{% if chart_data and chart_data != "[]" %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('progressChart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: {{ chart_labels|safe }},
+    datasets: [{
+      label: 'Grade (%)',
+      data: {{ chart_data|safe }},
+      borderColor: '#8BAE8C',
+      backgroundColor: 'rgba(139,174,140,.2)',
+      borderWidth: 2,
+      tension: .3
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }},
+    scales: { y: { beginAtZero: true, max: 100 }}
+  }
+});
+</script>
 {% endif %}
 
+{% endif %}
 {% endblock %}

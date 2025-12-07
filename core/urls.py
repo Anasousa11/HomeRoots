@@ -2,12 +2,7 @@ from django.urls import path
 from . import views
 from django.shortcuts import redirect
 
-def students_list_redirect(request):
-    return redirect("core:students")
 
-urlpatterns += [
-    path("students/list/", students_list_redirect),
-]
 
 app_name = 'core'
 
@@ -46,4 +41,10 @@ urlpatterns = [
 
     # CONTACT PAGE
     path('contact/', views.contact, name='contact'),
+]
+def students_list_redirect(request):
+    return redirect("core:students")
+
+urlpatterns += [
+    path("students/list/", students_list_redirect),
 ]

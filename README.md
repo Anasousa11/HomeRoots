@@ -215,7 +215,29 @@ All testing was carried out manually to verify that the applications features fu
 
 - Although several minor design and configuration issues were discovered during testing, no major bugs remain in the deployed version.
 
+### ✅ Lighthouse Testing
+
+Lighthouse testing was done using Chrome DevTools on the deployed Heroku site.
+
+#### Results:
+- **Performance:** Not fully calculated(Performance limitations were due to large hero image loading and live server response time on Heroku.)
+- **Accessibility:** 88
+- **Best Practices:** 100
+- **SEO:** 90
+
+Screenshots of these results are included below as evidence.<img width="1920" height="1080" alt="lighthouse-results-homeroots" src="https://github.com/user-attachments/assets/e6db2c23-4b4c-4e0a-b234-12629f9a90e7" />
+
 ---
+### ✅ Bugs & Fixes
+
+During development, a number of issues were found and resolved, including:
+
+- Static files not loading correctly on Heroku  
+- Missing database tables due to migration issues  
+- Broken links between pages  
+- Image upload issues  
+
+All bugs were fixed before final deployment.
 
 # 📱 Responsive Testing
 
@@ -246,7 +268,6 @@ The following viewports were tested:
 
 
 
-
 ### 🔍 Validator Testing
 #### HTML Validation
 
@@ -262,6 +283,30 @@ Tested using W3C CSS Jigsaw
 ![css_validator](https://github.com/user-attachments/assets/59d77a19-2885-4413-a967-cde1183c3e23)
 
 ✔ Pass – no invalid rules
+
+#### ✅ Python (PEP8) Validation
+
+All custom Python files in this project were checked using `pycodestyle` to make sure the code follows PEP8 standards.
+
+The following command was used to run the initial test:
+
+python -m pycodestyle .
+
+To ensure only the project’s own files were checked this command was then used:
+
+python -m pycodestyle . --exclude=.venv
+
+Results showed that most of the warnings were related to formatting only, such as:
+
+- Lines being slightly longer than the recommended 79 characters  
+- Spacing between functions and classes  
+- Import placement in the settings file  
+- Minor whitespace formatting  
+
+These are all **styling issues only** and do **not affect how the project works**.  
+All main features of the application were tested and confirmed to work as expected.
+
+Overall, the Python code has been validated and is functioning correctly.
 
 ---
 # 📁 Folder Pathway
@@ -287,86 +332,86 @@ Wireframes
 
 # 🚀 Deployment
 
-HomeRoots was deployed using **Heroku** to show a real-world development of an application from local development to live cloud hosting. This ensured the project met the requirement for deploying a full-stack web application to a production environment and ensuring that it matched the development version.
+HomeRoots was deployed using Heroku so that it can be accessed live on the web.  
+The live site can be found here:
 
-The deployment process helped me understand real production workflows used in the industry including environment configuration, version control, and safe handling of sensitive settings.
-
----
-
-## ✅ Pre-Deployment Setup
-
-Before deployment, the following production configurations were completed:
-
-- `DEBUG` set to `False`
-- `ALLOWED_HOSTS` updated to include the Heroku app domain  
-- Static file handling configured using **WhiteNoise**  
-- **Gunicorn** added as the production web server  
-- `requirements.txt`, `Procfile`, and `runtime.txt` created  
-- Environment variables used to protect sensitive settings  
-- Final code reviewed to ensure:  
-  - No commented-out production code  
-  - No broken internal links  
-  - No secret keys pushed to GitHub  
+🔗 Live Site: https://homeroot-e8a349dd181e.herokuapp.com/
 
 ---
 
-## ✅ Step-by-Step Deployment Process (Heroku)
+### Running the Project Locally
 
-1. **Login to Heroku**
+To run this project on your own computer, follow the steps below:
 
-- heroku login
+1. Clone the repository:
 
-2. **Create the Heroku Application**
+git clone https://github.com/yourusername/your-repo-name.git
 
+2. Navigate into the project folder:
 
-- heroku create homeroot
+cd your-repo-name
 
-3. **Set Python Buildpack**
+3. Create and activate a virtual environment:
 
-- heroku buildpacks:set heroku/python
+python -m venv venv  
 
-4. **Push the Project to Heroku**
+Windows:
+venv\Scripts\activate  
 
+Mac/Linux:
+source venv/bin/activate  
 
-- git add .
-- git commit -m "Initial production deployment"
-- git push heroku main
+4. Install the project dependencies:
 
-5. **Apply Database Migrations**
+pip install -r requirements.txt  
 
-- heroku run python manage.py migrate
+5. Create a `.env` file and add the following values:
 
-6. **Collect Static Files**
+SECRET_KEY=your_secret_key  
+DEBUG=True  
+DATABASE_URL=sqlite:///db.sqlite3  
 
+6. Apply the database migrations:
 
-- heroku run python manage.py collectstatic
+python manage.py migrate  
 
-7. **Create Superuser (Admin Access)**
+7. Create a superuser for the admin panel:
 
+python manage.py createsuperuser  
 
-- heroku run python manage.py createsuperuser
+8. Run the development server:
+
+python manage.py runserver  
+
+9. Open the project in your browser:
+
+http://127.0.0.1:8000/
+
 ---
-After these steps, the application was successfully deployed and rendered live on the Heroku cloud platform.
----
-## 🌍 Live Deployment Link
-The deployed version of HomeRoots is available here:
 
-🔗 https://homeroot-e8a349dd181e.herokuapp.com/
+### Heroku Deployment
 
-The deployed site was tested to ensure it matched the development environment in both functionality and design.
+The following steps were used to deploy the project to Heroku:
 
-## Production Security Checks
-- DEBUG disabled in production
+1. A new Heroku app was created.
+2. The following Config Vars were added:
+   - SECRET_KEY  
+   - DATABASE_URL  
+3. Production dependencies were installed:
+   - gunicorn  
+   - dj-database-url  
+   - psycopg2-binary  
+   - whitenoise  
+4. A `Procfile` was created to run the application.
+5. Static files were collected using:
 
-- Secret keys secured using environment variables
+python manage.py collectstatic  
 
-- Database credentials never stored in GitHub
+6. The project was pushed to Heroku using Git.
+7. Database migrations were run on Heroku.
 
-- Django security headers enabled
+Once completed, the site became fully accessible online.
 
-- Iframe embedding protection enabled
-
-- GitHub repository contains no sensitive data
 ---
 
 # 📝 Assessment Criteria Alignment
@@ -437,6 +482,7 @@ HomeRoots represents both my technical growth and a real solution to a real need
 Ana Samanda Dicha De Sousa
 Web Application Development – Level 5 Diploma
 GitHub: https://github.com/Anasousa11
+
 
 
 

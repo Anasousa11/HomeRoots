@@ -72,12 +72,12 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 
 # 🗃 Database Schema
 
-HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects real-world homeschooling relationships and supports full CRUD functionality.
+HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects homeschooling relationships in real life and supports full CRUD functionality.
 
 ---
 
 ## 📌 Student Model
-Stores individual learner information.
+Stores each students information.
 
 **Fields:**
 - first_name  
@@ -86,7 +86,7 @@ Stores individual learner information.
 - profile_image  
 - created_at  
 
-Each student can have multiple progress records linked to them.
+Each student can have multiple lessons linked to them to then show progress.
 
 ---
 
@@ -99,7 +99,7 @@ Stores lesson details.
 - description  
 - created_at  
 
-Each lesson can be assigned to multiple students through progress records.
+Each lesson can be assigned to multiple students through the progress page.
 
 ---
 
@@ -121,7 +121,7 @@ Acts as a **junction table** between Students and Lessons.
 - One **Lesson** → Many **LessonProgress** records  
 - **LessonProgress** links both Students and Lessons together  
 
-This structure allows tracking of lesson completion and grading across multiple students.
+This structure allows user to track lessons completed and grades for multiple students.
 
 ---
 
@@ -152,7 +152,7 @@ This structure allows tracking of lesson completion and grading across multiple 
 
 # 🧪 Testing
 
-All testing was carried out manually to verify that the application functions as expected across all core features.
+All testing was carried out manually to verify that the applications features functions as expected.
 
 ---
 
@@ -213,13 +213,13 @@ All testing was carried out manually to verify that the application functions as
 | No broken links | Pass |
 | Clean page transitions | Pass |
 
-- While several minor layout and configuration issues were discovered during testing, no major functional bugs remain in the deployed version.
+- Although several minor design and configuration issues were discovered during testing, no major bugs remain in the deployed version.
 
 ---
 
 # 📱 Responsive Testing
 
-All responsive testing was completed using **Chrome Browser Developer Tools** to simulate real-world screen sizes and devices.
+Due to Iframe embedding protection being enabled, all responsive testing was completed using **Chrome Browser Developer Tools** to simulate real-world screen sizes and devices.
 
 The following viewports were tested:
 
@@ -254,7 +254,7 @@ Tested using W3C HTML Validator
 ![html_validator](https://github.com/user-attachments/assets/79f5492e-bc92-45c4-bc48-a40b7b2276a4)
 
 ✔ No major structural errors
-✔ Minor warnings ignored (Bootstrap-related)
+
 
 #### CSS Validation
 
@@ -287,9 +287,9 @@ Wireframes
 
 # 🚀 Deployment
 
-HomeRoots was deployed using **Heroku** to demonstrate a complete real-world development workflow from local development to live cloud hosting. This ensured the project met the requirement for deploying a full-stack web application to a production environment and verifying that it matched the development version.
+HomeRoots was deployed using **Heroku** to show a real-world development of an application from local development to live cloud hosting. This ensured the project met the requirement for deploying a full-stack web application to a production environment and ensuring that it matched the development version.
 
-The deployment process helped me understand real production workflows used in industry including environment configuration, version control, and secure handling of sensitive settings.
+The deployment process helped me understand real production workflows used in the industry including environment configuration, version control, and safe handling of sensitive settings.
 
 ---
 
@@ -425,9 +425,9 @@ During development, I faced several serious delays and was granted an official e
 
 Although these challenges caused unavoidable delays, I remained committed to finishing HomeRoots to the best of my ability. Completing this project under such difficult circumstances has made the achievement even more meaningful to me.
 
-This project helped me fully understand how a full-stack web application works — from database modelling and CRUD logic to templates, deployment, and debugging live errors. Some issues initially felt impossible to solve, but working through them built my confidence and strengthened my problem-solving skills.
+This project helped me fully understand how a full-stack web application works — from database modelling and CRUD logic to templates, deployment, and debugging live errors. Some issues took forever to solve, but working through them built my confidence and embedded knowledge that will help me in my web development career.
 
-HomeRoots represents both my technical growth and a real solution to a real need in my own life. The skills I’ve gained from this project will strongly influence how I approach future development work.
+HomeRoots represents both my technical growth and a real solution to a real need in my own life. The skills I’ve gained from this project will strongly influence how I approach development work in the future.
 
 
 
@@ -437,6 +437,7 @@ HomeRoots represents both my technical growth and a real solution to a real need
 Ana Samanda Dicha De Sousa
 Web Application Development – Level 5 Diploma
 GitHub: https://github.com/Anasousa11
+
 
 
 

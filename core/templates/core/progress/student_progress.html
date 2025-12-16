@@ -42,9 +42,7 @@
               Based on completed lessons with grades.
             </p>
           {% else %}
-            <p class="text-muted mb-0">
-              No graded lessons yet.
-            </p>
+            <p class="text-muted mb-0">No graded lessons yet.</p>
           {% endif %}
         </div>
       </div>
@@ -66,7 +64,7 @@
     </div>
   </div>
 
-  <!-- Available Lessons to Assign -->
+  <!-- Available Lessons -->
   <div class="mb-5">
     <h4 class="mb-3" style="color: #264f36;">Available Lessons</h4>
 
@@ -136,6 +134,55 @@
                 </button>
               </td>
             </tr>
+
+            <!-- Complete Lesson Modal -->
+            <div class="modal fade"
+                 id="completeModal-{{ p.lesson.id }}"
+                 tabindex="-1"
+                 aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h5 class="modal-title">Complete Lesson</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+
+                  <form method="post"
+                        action="{% url 'core:mark_lesson_completed' student.id p.lesson.id %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                      <p><strong>{{ p.lesson.title }}</strong></p>
+
+                      <div class="mb-3">
+                        <label class="form-label">Grade (%)</label>
+                        <input type="number"
+                               name="grade"
+                               class="form-control"
+                               min="0"
+                               max="100"
+                               placeholder="e.g. 85"
+                               required>
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button"
+                              class="btn btn-outline-secondary"
+                              data-bs-dismiss="modal">
+                        Cancel
+                      </button>
+                      <button type="submit"
+                              class="btn btn-success">
+                        Save & Complete
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+
             {% endfor %}
           </tbody>
         </table>
@@ -157,7 +204,6 @@ new Chart(ctx, {
   data: {
     labels: {{ chart_labels|safe }},
     datasets: [{
-      label: 'Grade (%)',
       data: {{ chart_data|safe }},
       borderColor: '#8BAE8C',
       backgroundColor: 'rgba(139,174,140,.2)',

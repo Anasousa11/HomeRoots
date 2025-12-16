@@ -4,8 +4,8 @@
 {% if no_data %}
 <div class="container py-5">
   <div class="alert alert-info text-center mt-5">
-      <h4>No progress data yet</h4>
-      <p>Add a student and lessons to start tracking progress.</p>
+    <h4>No progress data yet</h4>
+    <p>Add a student and lessons to start tracking progress.</p>
   </div>
 </div>
 
@@ -66,7 +66,46 @@
     </div>
   </div>
 
-  <!-- Assigned but not completed -->
+  <!-- Available Lessons to Assign -->
+  <div class="mb-5">
+    <h4 class="mb-3" style="color: #264f36;">Available Lessons</h4>
+
+    {% if unassigned_lessons %}
+    <div class="card border-0 shadow-sm">
+      <div class="card-body table-responsive">
+        <table class="table mb-0 align-middle">
+          <thead>
+            <tr>
+              <th>Lesson</th>
+              <th>Subject</th>
+              <th>Level</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for lesson in unassigned_lessons %}
+            <tr>
+              <td>{{ lesson.title }}</td>
+              <td>{{ lesson.get_subject_display }}</td>
+              <td>{{ lesson.get_level_display }}</td>
+              <td class="text-end">
+                <a href="{% url 'core:assign_lesson' student.id lesson.id %}"
+                   class="btn btn-sm btn-outline-success">
+                  Assign
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% else %}
+      <p class="text-muted">All lessons have been assigned to this student.</p>
+    {% endif %}
+  </div>
+
+  <!-- Assigned but Not Completed -->
   <div class="mb-5">
     <h4 class="mb-3" style="color: #264f36;">Assigned but Not Completed</h4>
 

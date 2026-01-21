@@ -10,25 +10,29 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+"""
+Django settings for homeschool_planner project.
+"""
+
 from pathlib import Path
 import dj_database_url
 import os
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY: Secret key from environment, fallback only for local/dev
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", get_random_secret_key())
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# SECURITY: Debug from environment (default False)
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7j@w#a4%xkwj0ga8zw-@=hdy(fm1xpcb(n6b(o0+&n-8n3h*3u'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
-
+# Hosts from environment, with sensible default
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    ".herokuapp.com,127.0.0.1,localhost"
+).split(",")
 
 # Application definition
 
@@ -72,8 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'homeschool_planner.homeschool_planner.wsgi.application'
 
-
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -84,6 +86,7 @@ DATABASES = {
         ssl_require=True,
     )
 }
+
 
 
 # Password validation

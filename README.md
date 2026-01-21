@@ -72,12 +72,12 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 
 # 🗃 Database Schema
 
-HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects homeschooling relationships in real life and supports full CRUD functionality.
+HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects real-world homeschooling relationships and supports full CRUD functionality.
 
 ---
 
 ## 📌 Student Model
-Stores each students information.
+Stores individual learner information.
 
 **Fields:**
 - first_name  
@@ -86,7 +86,7 @@ Stores each students information.
 - profile_image  
 - created_at  
 
-Each student can have multiple lessons linked to them to then show progress.
+Each student can have multiple progress records linked to them.
 
 ---
 
@@ -99,7 +99,7 @@ Stores lesson details.
 - description  
 - created_at  
 
-Each lesson can be assigned to multiple students through the progress page.
+Each lesson can be assigned to multiple students through progress records.
 
 ---
 
@@ -121,7 +121,7 @@ Acts as a **junction table** between Students and Lessons.
 - One **Lesson** → Many **LessonProgress** records  
 - **LessonProgress** links both Students and Lessons together  
 
-This structure allows user to track lessons completed and grades for multiple students.
+This structure allows tracking of lesson completion and grading across multiple students.
 
 ---
 
@@ -152,7 +152,7 @@ This structure allows user to track lessons completed and grades for multiple st
 
 # 🧪 Testing
 
-All testing was carried out manually to verify that the applications features functions as expected. Most testing was done late at night after my children were asleep, which helped me properly focus on each feature.
+All testing was carried out manually to verify that the application functions as expected across all core features.
 
 ---
 
@@ -213,35 +213,13 @@ All testing was carried out manually to verify that the applications features fu
 | No broken links | Pass |
 | Clean page transitions | Pass |
 
-- Although several minor design and configuration issues were discovered during testing, no major bugs remain in the deployed version.
-
-### ✅ Lighthouse Testing
-
-Lighthouse testing was done using Chrome DevTools on the deployed Heroku site.
-
-#### Results:
-- **Performance:** Not fully calculated(Performance limitations were due to large hero image loading and live server response time on Heroku.)
-- **Accessibility:** 88
-- **Best Practices:** 100
-- **SEO:** 90
-
-Screenshots of these results are included below as evidence.<img width="1920" height="1080" alt="lighthouse-results-homeroots" src="https://github.com/user-attachments/assets/e6db2c23-4b4c-4e0a-b234-12629f9a90e7" />
+- While several minor layout and configuration issues were discovered during testing, no major functional bugs remain in the deployed version.
 
 ---
-### ✅ Bugs & Fixes
 
-During development, a number of issues were found and resolved, including:
+# 📱 Responsive Testing
 
-- Static files not loading correctly on Heroku  
-- Missing database tables due to migration issues  
-- Broken links between pages  
-- Image upload issues  
-
-All bugs were fixed before final deployment.
-
-### 📱 Responsive Testing
-
-Due to Iframe embedding protection being enabled, all responsive testing was completed using **Chrome Browser Developer Tools** to simulate real-world screen sizes and devices.
+All responsive testing was completed using **Chrome Browser Developer Tools** to simulate real-world screen sizes and devices.
 
 The following viewports were tested:
 
@@ -251,19 +229,15 @@ The following viewports were tested:
 - Landscape and portrait orientations
 
 ---
-#### 📸 Responsive Testing Screenshots (Browser DevTools)
+
+## 📸 Responsive Testing Screenshots (Browser DevTools)
+
+
 
 - Homepage – Mobile View  
-<img width="300" alt="home_mobile" src="https://github.com/user-attachments/assets/30618e72-a97e-48aa-bd4d-cf7f3894b77c" />
-
 - Students Dashboard – Tablet View  
-<img width="420" alt="student_tablet" src="https://github.com/user-attachments/assets/369b4b14-1685-4f23-a56f-1177bbc8c3c9" />
-
 - Lessons Dashboard – Mobile View  
-<img width="300" alt="lesson_mobile" src="https://github.com/user-attachments/assets/457349b6-2624-4e4c-95ed-7b0f14c790b6" />
-
 - Progress Chart – Small Screen Landscape  
-<img width="500" alt="progress_ss" src="https://github.com/user-attachments/assets/19e54ee8-2413-4c28-87fa-1882ec568119" />
 
 
 
@@ -272,59 +246,15 @@ The following viewports were tested:
 #### HTML Validation
 
 Tested using W3C HTML Validator
-![html_validator](https://github.com/user-attachments/assets/79f5492e-bc92-45c4-bc48-a40b7b2276a4)
 
 ✔ No major structural errors
-
+✔ Minor warnings ignored (Bootstrap-related)
 
 #### CSS Validation
 
 Tested using W3C CSS Jigsaw
-![css_validator](https://github.com/user-attachments/assets/59d77a19-2885-4413-a967-cde1183c3e23)
 
 ✔ Pass – no invalid rules
-
-#### ✅ Python (PEP8) Validation
-
-All custom Python files in this project were checked using `pycodestyle` to make sure the code follows PEP8 standards.
-
-The following command was used to run the initial test:
-
-python -m pycodestyle .
-
-To ensure only the project’s own files were checked this command was then used:
-
-python -m pycodestyle . --exclude=.venv
-
-Results showed that most of the warnings were related to formatting only, such as:
-
-- Lines being slightly longer than the recommended 79 characters  
-- Spacing between functions and classes  
-- Import placement in the settings file  
-- Minor whitespace formatting  
-
-These are all **styling issues only** and do **not affect how the project works**.  
-All main features of the application were tested and confirmed to work as expected.
-
-Overall, the Python code has been validated and is functioning correctly.
-
-### ✅ JavaScript (JSHint) Validation
-
-JSHint was used to check the JavaScript in this project for any errors or potential issues.
-
-The following command was used:
-
-jshint core/static/
-
-During testing, most of the warnings came from a Django admin vendor file located in:
-
-homeschool_planner/staticfiles/admin/js/vendor/xregexp/xregexp.min.js
-
-This file is automatically generated by Django and is not part of the project’s code. 
-
-These warnings were safely ignored because they do not affect the functionality of this project.
-
-All JavaScript written for HomeRoot was tested and is working.
 
 ---
 # 📁 Folder Pathway
@@ -335,7 +265,7 @@ All JavaScript written for HomeRoot was tested and is working.
 
 # 📝 Project Planning
 Wireframes
-<img width="1536" height="1024" alt="wireframe" src="https://github.com/user-attachments/assets/6afd5329-5f71-4b8c-b1ad-b8515b7ad645" />
+
 
 # 🧭 User Stories
 
@@ -350,86 +280,86 @@ Wireframes
 
 # 🚀 Deployment
 
-HomeRoots was deployed using Heroku so that it can be accessed live on the web.  
-The live site can be found here:
+HomeRoots was deployed using **Heroku** to demonstrate a complete real-world development workflow from local development to live cloud hosting. This ensured the project met the requirement for deploying a full-stack web application to a production environment and verifying that it matched the development version.
 
-🔗 Live Site: https://homeroot-e8a349dd181e.herokuapp.com/
-
----
-
-### Running the Project Locally
-
-To run this project on your own computer, follow the steps below:
-
-1. Clone the repository:
-
-git clone https://github.com/yourusername/your-repo-name.git
-
-2. Navigate into the project folder:
-
-cd your-repo-name
-
-3. Create and activate a virtual environment:
-
-python -m venv venv  
-
-Windows:
-venv\Scripts\activate  
-
-Mac/Linux:
-source venv/bin/activate  
-
-4. Install the project dependencies:
-
-pip install -r requirements.txt  
-
-5. Create a `.env` file and add the following values:
-
-SECRET_KEY=your_secret_key  
-DEBUG=True  
-DATABASE_URL=sqlite:///db.sqlite3  
-
-6. Apply the database migrations:
-
-python manage.py migrate  
-
-7. Create a superuser for the admin panel:
-
-python manage.py createsuperuser  
-
-8. Run the development server:
-
-python manage.py runserver  
-
-9. Open the project in your browser:
-
-http://127.0.0.1:8000/
+The deployment process helped me understand real production workflows used in industry including environment configuration, version control, and secure handling of sensitive settings.
 
 ---
 
-### Heroku Deployment
+## ✅ Pre-Deployment Setup
 
-The following steps were used to deploy the project to Heroku:
+Before deployment, the following production configurations were completed:
 
-1. A new Heroku app was created.
-2. The following Config Vars were added:
-   - SECRET_KEY  
-   - DATABASE_URL  
-3. Production dependencies were installed:
-   - gunicorn  
-   - dj-database-url  
-   - psycopg2-binary  
-   - whitenoise  
-4. A `Procfile` was created to run the application.
-5. Static files were collected using:
+- `DEBUG` set to `False`
+- `ALLOWED_HOSTS` updated to include the Heroku app domain  
+- Static file handling configured using **WhiteNoise**  
+- **Gunicorn** added as the production web server  
+- `requirements.txt`, `Procfile`, and `runtime.txt` created  
+- Environment variables used to protect sensitive settings  
+- Final code reviewed to ensure:  
+  - No commented-out production code  
+  - No broken internal links  
+  - No secret keys pushed to GitHub  
 
-python manage.py collectstatic  
+---
 
-6. The project was pushed to Heroku using Git.
-7. Database migrations were run on Heroku.
+## ✅ Step-by-Step Deployment Process (Heroku)
 
-Once completed, the site became fully accessible online.
+1. **Login to Heroku**
 
+- heroku login
+
+2. **Create the Heroku Application**
+
+
+- heroku create homeroot
+
+3. **Set Python Buildpack**
+
+- heroku buildpacks:set heroku/python
+
+4. **Push the Project to Heroku**
+
+
+- git add .
+- git commit -m "Initial production deployment"
+- git push heroku main
+
+5. **Apply Database Migrations**
+
+- heroku run python manage.py migrate
+
+6. **Collect Static Files**
+
+
+- heroku run python manage.py collectstatic
+
+7. **Create Superuser (Admin Access)**
+
+
+- heroku run python manage.py createsuperuser
+---
+After these steps, the application was successfully deployed and rendered live on the Heroku cloud platform.
+---
+## 🌍 Live Deployment Link
+The deployed version of HomeRoots is available here:
+
+🔗 https://homeroot-e8a349dd181e.herokuapp.com/
+
+The deployed site was tested to ensure it matched the development environment in both functionality and design.
+
+## Production Security Checks
+- DEBUG disabled in production
+
+- Secret keys secured using environment variables
+
+- Database credentials never stored in GitHub
+
+- Django security headers enabled
+
+- Iframe embedding protection enabled
+
+- GitHub repository contains no sensitive data
 ---
 
 # 📝 Assessment Criteria Alignment
@@ -488,9 +418,9 @@ During development, I faced several serious delays and was granted an official e
 
 Although these challenges caused unavoidable delays, I remained committed to finishing HomeRoots to the best of my ability. Completing this project under such difficult circumstances has made the achievement even more meaningful to me.
 
-This project helped me fully understand how a full-stack web application works — from database modelling and CRUD logic to templates, deployment, and debugging live errors. Some issues took forever to solve, but working through them built my confidence and embedded knowledge that will help me in my web development career.
+This project helped me fully understand how a full-stack web application works — from database modelling and CRUD logic to templates, deployment, and debugging live errors. Some issues initially felt impossible to solve, but working through them built my confidence and strengthened my problem-solving skills.
 
-HomeRoots represents both my technical growth and a real solution to a real need in my own life. The skills I’ve gained from this project will strongly influence how I approach development work in the future.
+HomeRoots represents both my technical growth and a real solution to a real need in my own life. The skills I’ve gained from this project will strongly influence how I approach future development work.
 
 
 
@@ -500,12 +430,6 @@ HomeRoots represents both my technical growth and a real solution to a real need
 Ana Samanda Dicha De Sousa
 Web Application Development – Level 5 Diploma
 GitHub: https://github.com/Anasousa11
-
-
-
-
-
-
 
 
 

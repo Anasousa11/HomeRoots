@@ -45,10 +45,11 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 - Simple contact form on the site
 - Messages show up in the console (for now)
 
-### 🎨 Design
-- Green and natural color theme (fits the "roots" vibe)
-- Responsive so it works on phones and desktops
-- Bootstrap for clean styling
+### 🎨 User Interface
+- Soft green visual theme  
+- Rounded cards and modern layout  
+- Fully responsive  
+- Clean typography  
 
 ---
 

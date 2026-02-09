@@ -7,6 +7,11 @@ urlpatterns = [
     # Home
     path('', views.index, name='index'),
 
+    # AUTHENTICATION
+    path('login/', views.CustomLoginView.as_view(), name='login'),
+    path('logout/', views.CustomLogoutView.as_view(), name='logout'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+
     # STUDENT DASHBOARD (default student page)
     path('students/', views.students_dashboard, name='students_dashboard'),
 

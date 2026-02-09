@@ -111,26 +111,43 @@ class LessonDetailView(DetailView):
     template_name = 'core/lessons/detail.html'
     context_object_name = 'lesson'
 
-class LessonCreateView(CreateView):
+class LessonCreateView(LoginRequiredMixin, CreateView):
     model = Lesson
     form_class = LessonForm
     template_name = 'core/lessons/form.html'
+    login_url = 'login'
 
-class LessonUpdateView(UpdateView):
+    def form_valid(self, form):
+        messages.success(self.request, f'Lesson "{form.cleaned_data["title"]}" created successfully!')
+        return super().form_valid(form)
+
+class LessonUpdateView(LoginRequiredMixin, UpdateView):
     model = Lesson
     form_class = LessonForm
     template_name = 'core/lessons/form.html'
+    login_url = 'login'
 
-class LessonDeleteView(DeleteView):
+    def form_valid(self, form):
+        messages.success(self.request, f'Lesson "{form.cleaned_data["title"]}" updated successfully!')
+        return super().form_valid(form)
+
+class LessonDeleteView(LoginRequiredMixin, DeleteView):
     model = Lesson
     template_name = 'core/lessons/confirm-delete.html'
     success_url = reverse_lazy('core:lessons')
+    login_url = 'login'
+
+    def delete(self, request, *args, **kwargs):
+        lesson = self.get_object()
+        messages.success(self.request, f'Lesson "{lesson.title}" deleted successfully!')
+        return super().delete(request, *args, **kwargs)
 
 
 
 # PROGRESS VIEW
 
 
+@login_required(login_url='login')
 def assign_lesson(request, student_id, lesson_id):
     """
     Assign a lesson to a student (creates LessonProgress with completed=False).
@@ -138,15 +155,21 @@ def assign_lesson(request, student_id, lesson_id):
     student = get_object_or_404(Student, pk=student_id)
     lesson = get_object_or_404(Lesson, pk=lesson_id)
 
-    LessonProgress.objects.get_or_create(
+    progress, created = LessonProgress.objects.get_or_create(
         student=student,
         lesson=lesson,
         defaults={"completed": False}
     )
+    
+    if created:
+        messages.success(request, f'Lesson "{lesson.title}" assigned to {student.first_name} {student.last_name}!')
+    else:
+        messages.info(request, f'Lesson "{lesson.title}" is already assigned to {student.first_name} {student.last_name}.')
 
     return redirect("core:student_progress", student_id=student.id)
 
 
+@login_required(login_url='login')
 def mark_lesson_completed(request, student_id, lesson_id):
     """
     Mark a lesson as completed for a student, with optional grade.
@@ -173,6 +196,7 @@ def mark_lesson_completed(request, student_id, lesson_id):
         progress.completed_at = timezone.now()
         progress.save()
 
+        messages.success(request, f'Lesson "{lesson.title}" marked as completed for {student.first_name} {student.last_name}!')
         return redirect("core:student_progress", student_id=student.id)
 
     # If accessed via GET by mistake, just go back

@@ -1,6 +1,10 @@
 # Import render and define a view for the homepage
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.utils import timezone
 from .models import Student, Lesson, LessonProgress
@@ -12,6 +16,29 @@ import json
  
 def index(request):
     return render(request, 'core/index.html')
+
+
+# -----------------------------------------
+# AUTHENTICATION VIEWS
+# -----------------------------------------
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    redirect_authenticated_user = True
+
+
+class CustomLogoutView(LogoutView):
+    next_page = 'core:index'
+
+
+class RegisterView(FormView):
+    template_name = 'registration/register.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, 'Account created successfully! Please log in.')
+        return super().form_valid(form)
 
 
 # -----------------------------------------
@@ -38,20 +65,36 @@ class StudentDetailView(DetailView):
     template_name = 'core/students/detail.html'
     context_object_name = 'student'
 
-class StudentCreateView(CreateView):
+class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Student
     form_class = StudentForm
     template_name = 'core/students/form.html'
+    login_url = 'login'
 
-class StudentUpdateView(UpdateView):
+    def form_valid(self, form):
+        messages.success(self.request, f'Student "{form.cleaned_data["first_name"]} {form.cleaned_data["last_name"]}" created successfully!')
+        return super().form_valid(form)
+
+class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Student
     form_class = StudentForm
     template_name = 'core/students/form.html'
+    login_url = 'login'
 
-class StudentDeleteView(DeleteView):
+    def form_valid(self, form):
+        messages.success(self.request, f'Student "{form.cleaned_data["first_name"]} {form.cleaned_data["last_name"]}" updated successfully!')
+        return super().form_valid(form)
+
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Student
     template_name = 'core/students/confirm-delete.html'
     success_url = reverse_lazy('core:students')
+    login_url = 'login'
+
+    def delete(self, request, *args, **kwargs):
+        student = self.get_object()
+        messages.success(self.request, f'Student "{student.first_name} {student.last_name}" deleted successfully!')
+        return super().delete(request, *args, **kwargs)
 
 
 # -----------------------------------------

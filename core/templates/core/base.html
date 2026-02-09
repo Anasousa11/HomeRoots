@@ -64,7 +64,10 @@
 
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'core:logout' %}">Logout ({{ user.username }})</a>
+                        <form method="post" action="{% url 'core:logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link" style="color: inherit; text-decoration: none;">Logout ({{ user.username }})</button>
+                        </form>
                     </li>
                 {% else %}
                     <li class="nav-item">

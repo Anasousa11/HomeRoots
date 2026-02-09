@@ -25,153 +25,69 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 # ✨ Features
 
 ### 👧 Student Management
-- Create, edit, delete student profiles  
-- Upload profile images  
-- View student dashboards  
+- Add, edit, delete student profiles
+- Upload profile pictures
+- See a dashboard of all students
 
 ### 📘 Lesson Planner
-- Add, edit, delete lessons  
-- View a lesson dashboard  
-- Assign lessons to students  
+- Create lessons with subjects, levels, objectives
+- Set duration and materials needed
+- Assign lessons to students
+- Edit or delete lessons
 
 ### 📊 Progress Tracking
-- Mark lessons as completed  
-- Add grades (0–100)  
-- Automatic overall grade calculation  
-- Line chart visualising student progress  
+- Mark lessons as completed
+- Record grades (0-100 scale)
+- See overall grade automatically calculated
+- View progress as a chart
 
-### 📨 Contact Form
-- Styled contact page  
-- Form submits messages  
-- Currently uses Django console backend  
+### 📨 Contact
+- Simple contact form on the site
+- Messages show up in the console (for now)
 
-### 🎨 User Interface
-- Soft green visual theme  
-- Rounded cards and modern layout  
-- Fully responsive  
-- Clean typography  
+### 🎨 Design
+- Green and natural color theme (fits the "roots" vibe)
+- Responsive so it works on phones and desktops
+- Bootstrap for clean styling
 
 ---
 
-# 🛠 Technologies Used
+# 🛠 Tech Stack
 
-- **Python 3 / Django 5**  
-- **SQLite3**  
-- **HTML / CSS / Bootstrap 5**  
-- **Chart.js**  
-- **Google Fonts**  
-- **Django Messages Framework**  
-- **Django Class-Based Views**  
-- **AI-generated images from DeepAI**  
-
----
-
-# 🗂 Information Architecture
-
----
+- **Python 3 & Django** - the main framework
+- **SQLite** locally, **PostgreSQL** on Heroku
+- **HTML, CSS, Bootstrap 5** - for the frontend
+- **Chart.js** - to draw the progress charts
+- **Heroku** - where the app is deployed
+- **Git & GitHub** - version control
 
 # 🗃 Database Schema
 
-HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects real-world homeschooling relationships and supports full CRUD functionality.
+My app uses three main tables to organize everything:
 
-## 📊 Entity Relationship Diagram (ERD)
+## How the Data Connects
 
-```
-┌─────────────────┐        ┌──────────────────┐        ┌──────────────────┐
-│    Student      │        │ LessonProgress   │        │     Lesson       │
-├─────────────────┤        ├──────────────────┤        ├──────────────────┤
-│ id (PK)         │       │ id (PK)          │        │ id (PK)          │
-│ first_name      │        │ student_id (FK)  │────┐   │ title            │
-│ last_name       │        │ lesson_id (FK)   │────┼──→│ subject          │
-│ dob             │        │ completed        │    │   │ level            │
-│ gender          │        │ grade (0-100)    │    │   │ description      │
-│ notes           │        │ completed_at     │    │   │ objectives       │
-│ profile_image   │        │ unique(student,  │    │   │ materials        │
-│ created_at      │        │        lesson)   │    │   │ duration_minutes │
-└─────────────────┘        └──────────────────┘    │   │ lesson_date      │
-       ▲                                             │   │ created_at       │
-       │                                             │   │ updated_at       │
-       └─────────────── (1:M) ─────────────────────┤   └──────────────────┘
-                                                    │
-                                             (M:1)──┘
-```
+**Students** → each student can take many lessons  
+**Lessons** → each lesson can be assigned to many students  
+**LessonProgress** → this tracks which lessons each student has completed and their grades
 
-## 📌 Student Model
-Stores individual learner information.
+The `LessonProgress` table is the bridge between Students and Lessons - it keeps a record of every lesson a student has done, whether they completed it, and what grade they got.
 
-**Fields:**
-- `id` (Primary Key) - Auto-generated unique identifier
-- `first_name` (CharField, max 50) - Student's first name
-- `last_name` (CharField, max 50) - Student's last name
-- `dob` (DateField, nullable) - Date of birth
-- `gender` (CharField, choices: M/F/O, nullable) - Student's gender
-- `notes` (TextField, blank) - Additional notes about the student
-- `profile_image` (ImageField, nullable) - Profile image upload
-- `created_at` (DateTimeField) - Auto-set to creation date/time
+## The Three Models
 
-**Relationships:**
-- One **Student** can have many **LessonProgress** records (1:M relationship)
-- Ordered by: last_name, first_name
+### Student
+- student ID, first name, last name, date of birth, gender
+- notes, profile image, created date
 
----
+### Lesson
+- lesson ID, title, subject, level (Elementary/Middle/High)
+- description, learning objectives, materials needed
+- duration, scheduled date, created/updated dates
 
-## 📌 Lesson Model
-Stores lesson details and curriculum information.
-
-**Fields:**
-- `id` (Primary Key) - Auto-generated unique identifier
-- `title` (CharField, max 150) - Lesson title
-- `subject` (CharField, choices) - Subject area (Language Arts, Mathematics, Science, Social Studies, Arts & Creative, Physical Education, Other)
-- `level` (CharField, choices) - Grade level (Elementary, Middle School, High School, All Ages)
-- `description` (TextField) - Brief description of the lesson
-- `objectives` (TextField) - Learning objectives for this lesson
-- `materials` (TextField, blank) - Materials and resources needed
-- `duration_minutes` (IntegerField, default 60) - Duration in minutes
-- `lesson_date` (DateField, nullable) - Scheduled lesson date
-- `created_at` (DateTimeField) - Auto-set to creation date/time
-- `updated_at` (DateTimeField) - Auto-updated on modification
-
-**Relationships:**
-- One **Lesson** can be assigned to many students through **LessonProgress** records (1:M relationship)
-- Ordered by: lesson_date (descending), created_at (descending)
-
----
-
-## 📌 LessonProgress Model
-Acts as a **junction table** (join table) between Students and Lessons, tracking completion and grades.
-
-**Fields:**
-- `id` (Primary Key) - Auto-generated unique identifier
-- `student` (ForeignKey) - Reference to the Student (cascade delete)
-- `lesson` (ForeignKey) - Reference to the Lesson (cascade delete)
-- `completed` (BooleanField, default False) - Whether the lesson is completed
-- `grade` (IntegerField, nullable) - Numeric grade (0–100)
-- `completed_at` (DateTimeField, nullable) - When the lesson was marked complete
-
-**Constraints:**
-- `unique_together` - Only one progress record per student-lesson pair (prevents duplicates)
-
-**Relationships:**
-- Many-to-Many relationship between Student and Lesson via this junction table
-- ForeignKey to **Student** with `related_name='lesson_progress'` (allows reverse lookup)
-- ForeignKey to **Lesson** with `related_name='student_progress'` (allows reverse lookup)
-
----
-
-## 🔗 Relationships Summary
-
-| From | To | Type | Cardinality |
-|------|--------|------|-------------|
-| Student | LessonProgress | One-to-Many | 1 Student → Many LessonProgress |
-| Lesson | LessonProgress | One-to-Many | 1 Lesson → Many LessonProgress |
-| Student ↔ Lesson | LessonProgress | Many-to-Many | Through LessonProgress |
-
-This structure allows:
-- Tracking of lesson completion for each student
-- Grading individual lesson assignments per student
-- Querying lessons assigned to a student
-- Calculating overall student progress and grades
-- Preventing duplicate assignments through unique constraints
+### LessonProgress
+- progress ID, student ID, lesson ID
+- completed (yes/no), grade (0-100), completion date
+- ensures each student can only have one record per lesson
 
 ---
 
@@ -400,89 +316,37 @@ The deployed site was tested to ensure it matched the development environment in
 
 ---
 
-# 🔒 Security Features & Implementation
+# 🔒 Security
 
-HomeRoots implements several security measures to protect user data and maintain application integrity:
+This time around, I made sure to handle sensitive information properly:
 
-## 🔑 Secret Key Management
+## Secret Keys & Environment Variables
 
-**Implementation:**
-- Django SECRET_KEY is read from environment variables, never hardcoded in source code
-- `.env` file (containing sensitive values) is excluded from Git via `.gitignore`
-- `.env.example` provided as a template for developers to create their own local `.env` file
-- In production (Heroku), environment variables are set securely in the platform dashboard
+I learned the hard way that putting secret keys in code is a security risk. Now:
+- The `DJANGO_SECRET_KEY` is read from environment variables only - never stored in the code
+- I created a `.env.example` file so anyone cloning the project knows what variables to set up
+- The `.env` file is in `.gitignore` so it never gets pushed to GitHub
+- On Heroku, I set the secret key in the Config Vars dashboard
 
-**How it works:**
-```python
-# settings.py
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", get_random_secret_key())
-```
+## Protected Database Credentials
 
-## 🛡️ Database Configuration
+- Database URL and credentials are loaded from environment variables
+- They're never hardcoded or committed to the repository
+- Locally uses SQLite for development; production uses PostgreSQL on Heroku with encrypted credentials
 
-**Implementation:**
-- Database credentials are never stored in the repository
-- Database URL is read from environment variables: `DATABASE_URL`
-- Local development uses SQLite (safe for development)
-- Production deployment uses PostgreSQL with encrypted credentials via Heroku
+## User Authentication
 
-## 🔐 User Authentication & Access Control
+I added login/logout functionality so:
+- Only authenticated users can create, edit, or delete students and lessons
+- Users have to register and log in to use the app
+- All password-sensitive operations use Django's built-in password hashing
 
-**Implementation:**
-- **Login Required**: All CRUD operations (create, edit, delete students and lessons, assign lessons, mark lessons complete) require user authentication
-- Login decorators and mixins enforce authentication:
-  - `@login_required` decorator for function-based views
-  - `LoginRequiredMixin` for class-based views
-- Users without login are redirected to the login page
-- Session-based authentication using Django's built-in authentication framework
+## What's Working
 
-**Access Control:**
-- Create, update, delete operations protected by `LoginRequiredMixin`
-- Progress update operations protected by `@login_required`
-- Read-only operations (view lists, details) remain accessible to demonstrate public-facing features
-
-## 🔒 Additional Security Measures
-
-**CSRF Protection:**
-- Django's CSRF middleware enabled by default
-- All forms include `{% csrf_token %}` to prevent Cross-Site Request Forgery attacks
-
-**Password Security:**
-- Django's built-in password validators enforced:
-  - Minimum length validation
-  - User attribute similarity checking
-  - Common password validation
-- User registration form implemented with `UserCreationForm`
-
-**Debug Mode:**
-- `DEBUG = False` in production (prevents sensitive error messages)
-- `DEBUG` read from environment variable for flexibility
-
-**Secure Headers:**
-- Django security middleware enabled
-- X-Frame-Options header protects against clickjacking
-
-**Static Files:**
-- WhiteNoise middleware securely serves static files in production
-- Static file URLs use HTTPS in production
-
----
-
-## Production Security Checks
-
-- ✅ DEBUG disabled in production
-
-- ✅ Secret keys secured using environment variables
-
-- ✅ Database credentials never stored in GitHub
-
-- ✅ Django security headers enabled
-
-- ✅ Iframe embedding protection enabled
-
-- ✅ GitHub repository contains no sensitive data
-
-- ✅ User authentication required for data modification operations
+- DEBUG is set to False in production (prevents sensitive error details from showing)
+- CSRF token protection on all forms
+- Strong password validation for new accounts
+- Session-based authentication
 
 ---
 

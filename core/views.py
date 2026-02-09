@@ -24,6 +24,7 @@ def index(request):
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
     redirect_authenticated_user = True
+    success_url = reverse_lazy('core:index')
 
 
 class CustomLogoutView(LogoutView):
@@ -33,11 +34,12 @@ class CustomLogoutView(LogoutView):
 class RegisterView(FormView):
     template_name = 'registration/register.html'
     form_class = UserCreationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('core:login')
 
     def form_valid(self, form):
         form.save()
         messages.success(self.request, 'Account created successfully! Please log in.')
+        return super().form_valid(form)
         return super().form_valid(form)
 
 

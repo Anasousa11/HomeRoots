@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <div class="card mt-5">
         <div class="card-body">
-          <h2 class="card-title mb-4">Login</h2>
+          <h2 class="card-title mb-4">Create an Account</h2>
 
           <form method="post">
             {% csrf_token %}
@@ -26,14 +26,17 @@
                     {{ field.errors|striptags }}
                   </div>
                 {% endif %}
+                {% if field.help_text %}
+                  <small class="form-text text-muted d-block mt-1">{{ field.help_text|safe }}</small>
+                {% endif %}
               </div>
             {% endfor %}
 
-            <button type="submit" class="btn btn-success w-100">Login</button>
+            <button type="submit" class="btn btn-success w-100">Register</button>
           </form>
 
           <hr>
-          <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+          <p class="text-center">Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
         </div>
       </div>
     </div>

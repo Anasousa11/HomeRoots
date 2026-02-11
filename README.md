@@ -69,11 +69,10 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 
 ---
 
-# 🗃 Database Schema
+## 🗃 Database Schema
 
 HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects homeschooling relationships in real life and supports full CRUD functionality.
 
-> **Important update (based on feedback):** The README database section must match the *actual Django model fields* exactly (M(vii)). I’ve kept this section in your style, but make sure the fields below match your real `models.py`. :contentReference[oaicite:1]{index=1}
 
 ## 📌 Student Model
 Stores each students information.
@@ -270,19 +269,17 @@ The following viewports were tested:
 
 ## 📸 Responsive Testing Screenshots (Browser DevTools)
 
-- Homepage – Mobile View  
-  ![home_mobile](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/home_mobile.png)
+**Homepage – Mobile View**  
+<img src="https://raw.githubusercontent.com/Anasousa11/HomeRoots/main/core/static/core/screenshots/home_mobile.png" width="320" alt="Homepage – Mobile View">
 
-- Students Dashboard – Tablet View  
-  ![student_tablet](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/home_mobile.png)
+**Students Dashboard – Tablet View**  
+<img src="https://raw.githubusercontent.com/Anasousa11/HomeRoots/main/core/static/core/screenshots/student_tablet.png" width="520" alt="Students Dashboard – Tablet View">
 
-- Lessons Dashboard – Mobile View  
-  ![lesson_mobile](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/lesson_mobile.png)
+**Lessons Dashboard – Mobile View**  
+<img src="https://raw.githubusercontent.com/Anasousa11/HomeRoots/main/core/static/core/screenshots/lesson_mobile.png" width="320" alt="Lessons Dashboard – Mobile View">
 
-- Progress Chart – Small Screen Landscape  
-  ![progress_ss](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/progress_ss.png)
-
----
+**Progress Chart – Small Screen Landscape**  
+<img src="https://raw.githubusercontent.com/Anasousa11/HomeRoots/main/core/static/core/screenshots/progress_ss.png" width="520" alt="Progress Chart – Small Screen Landscape">
 
 # 🔍 Validator Testing
 

@@ -226,9 +226,6 @@ Lighthouse testing was done using Chrome DevTools on the deployed Heroku site.
 - Best Practices: 100
 - SEO: 90
 
-Screenshots of these results are included below as evidence.
-
-![lighthouse-results-homeroots](core/static/core/screenshots/lighthouse-results-homeroots.png)
 
 ---
 
@@ -274,16 +271,16 @@ The following viewports were tested:
 ## 📸 Responsive Testing Screenshots (Browser DevTools)
 
 - Homepage – Mobile View  
-  ![home_mobile](core/static/core/screenshots/home_mobile.png)
+  ![home_mobile](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/home_mobile.png)
 
 - Students Dashboard – Tablet View  
-  ![student_tablet](core/static/core/screenshots/student_tablet.png)
+  ![student_tablet](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/home_mobile.png)
 
 - Lessons Dashboard – Mobile View  
-  ![lesson_mobile](core/static/core/screenshots/lesson_mobile.png)
+  ![lesson_mobile](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/lesson_mobile.png)
 
 - Progress Chart – Small Screen Landscape  
-  ![progress_ss](core/static/core/screenshots/progress_ss.png)
+  ![progress_ss](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/progress_ss.png)
 
 ---
 
@@ -291,13 +288,13 @@ The following viewports were tested:
 
 ## HTML Validation
 Tested using W3C HTML Validator  
-![html_validator](core/static/core/screenshots/html_validator.png)
+![html_validator](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/html_validator.jpeg)
 
 ✔ No major structural errors
 
 ## CSS Validation
 Tested using W3C CSS Jigsaw  
-![css_validator](core/static/core/screenshots/css_validator.png)
+![css_validator](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/css_validator.jpeg)
 
 ✔ Pass – no invalid rules
 
@@ -347,11 +344,11 @@ These warnings were safely ignored because they do not affect the functionality 
 All JavaScript written for HomeRoot was tested and is working.
 
 # 📁 Folder Pathway
-![directory](core/static/core/screenshots/directory.png/)
+![directory](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/directory.png)
 
 # 📝 Project Planning
 Wireframes 
-![Wireframe](core/static/core/screenshots/wireframe.png)
+![Wireframe](https://github.com/Anasousa11/HomeRoots/blob/main/core/static/core/screenshots/wireframe.png)
 
 # 🧭 User Stories
 - As a homeschooling parent, I want to add my children so their learning can be organised individually.

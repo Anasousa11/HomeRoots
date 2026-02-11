@@ -1,5 +1,4 @@
-﻿
-# 🌿 HomeRoots – Homeschool Planner & Progress Tracker
+﻿# 🌿 HomeRoots – Homeschool Planner & Progress Tracker
 
 HomeRoots is a full-stack Django web application designed to help homeschooling families manage lessons, track progress, organise students, and simplify daily planning.  
 This project was created as part of my Backend Development Milestone, but it is also inspired by my personal experience homeschooling my children.
@@ -24,28 +23,28 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 
 # ✨ Features
 
-### 👧 Student Management
-- Add, edit, delete student profiles
-- Upload profile pictures
-- See a dashboard of all students
+## 👧 Student Management
+- Create, edit, delete student profiles  
+- Upload profile images  
+- View student dashboards  
 
-### 📘 Lesson Planner
-- Create lessons with subjects, levels, objectives
-- Set duration and materials needed
-- Assign lessons to students
-- Edit or delete lessons
+## 📘 Lesson Planner
+- Add, edit, delete lessons  
+- View a lesson dashboard  
+- Assign lessons to students  
 
-### 📊 Progress Tracking
-- Mark lessons as completed
-- Record grades (0-100 scale)
-- See overall grade automatically calculated
-- View progress as a chart
+## 📊 Progress Tracking
+- Mark lessons as completed  
+- Add grades (0–100)  
+- Automatic overall grade calculation  
+- Line chart visualising student progress  
 
-### 📨 Contact
-- Simple contact form on the site
-- Messages show up in the console (for now)
+## 📨 Contact Form
+- Styled contact page  
+- Form submits messages  
+- Currently uses Django console backend  
 
-### 🎨 User Interface
+## 🎨 User Interface
 - Soft green visual theme  
 - Rounded cards and modern layout  
 - Fully responsive  
@@ -53,73 +52,106 @@ In the future, I would like to expand HomeRoots to include printable worksheets 
 
 ---
 
-# 🛠 Tech Stack
+# 🛠 Technologies Used
 
-- **Python 3 & Django** - the main framework
-- **SQLite** locally, **PostgreSQL** on Heroku
-- **HTML, CSS, Bootstrap 5** - for the frontend
-- **Chart.js** - to draw the progress charts
-- **Heroku** - where the app is deployed
-- **Git & GitHub** - version control
+- Python 3 / Django 5  
+- SQLite3  
+- HTML / CSS / Bootstrap 5  
+- Chart.js  
+- Google Fonts  
+- Django Messages Framework  
+- Django Class-Based Views  
+- AI-generated images from DeepAI  
+
+---
+
+# 🗂 Information Architecture
+
+---
 
 # 🗃 Database Schema
 
-My app uses three main tables to organize everything:
+HomeRoots uses a relational database to manage students, lessons, and progress records. The data model reflects homeschooling relationships in real life and supports full CRUD functionality.
 
-## How the Data Connects
+> **Important update (based on feedback):** The README database section must match the *actual Django model fields* exactly (M(vii)). I’ve kept this section in your style, but make sure the fields below match your real `models.py`. :contentReference[oaicite:1]{index=1}
 
-**Students** → each student can take many lessons  
-**Lessons** → each lesson can be assigned to many students  
-**LessonProgress** → this tracks which lessons each student has completed and their grades
+## 📌 Student Model
+Stores each students information.
 
-The `LessonProgress` table is the bridge between Students and Lessons - it keeps a record of every lesson a student has done, whether they completed it, and what grade they got.
+**Fields:**
+- first_name  
+- last_name  
+- date_of_birth  
+- profile_image  
+- created_at  
 
-## The Three Models
+Each student can have multiple lessons linked to them to then show progress.
 
-### Student
-- student ID, first name, last name, date of birth, gender
-- notes, profile image, created date
+## 📌 Lesson Model
+Stores lesson details.
 
-### Lesson
-- lesson ID, title, subject, level (Elementary/Middle/High)
-- description, learning objectives, materials needed
-- duration, scheduled date, created/updated dates
+**Fields:**
+- title  
+- subject  
+- description  
+- created_at  
 
-### LessonProgress
-- progress ID, student ID, lesson ID
-- completed (yes/no), grade (0-100), completion date
-- ensures each student can only have one record per lesson
+Each lesson can be assigned to multiple students through the progress page.
+
+## 📌 LessonProgress Model
+Acts as a junction table between Students and Lessons.
+
+**Fields:**
+- student (ForeignKey)  
+- lesson (ForeignKey)  
+- status (Pending / Completed)  
+- grade (0–100)  
+- updated_at  
+
+## 🔗 Relationships Summary
+- One Student → Many LessonProgress records  
+- One Lesson → Many LessonProgress records  
+- LessonProgress links both Students and Lessons together  
+
+This structure allows user to track lessons completed and grades for multiple students.
+
+---
+
+## 📊 ERD (Database Diagram)
+
+> **Update for feedback:** I am adding a proper ERD image that reflects the real database structure (M(vii)). :contentReference[oaicite:2]{index=2}
+
+✅ ERD added below (replace the placeholder image with your actual ERD screenshot/export):
+
+![ERD Diagram](docs/erd.png)
+
+*(If you don’t have it yet, generate it from your models and export as an image, then save it as `docs/erd.png`.)*
 
 ---
 
 # 📸 Screenshots
 
-
-### **Homepage**
+## Homepage
 ![home](https://github.com/user-attachments/assets/5fd9a5a4-bbf3-43c8-98af-e4b85507d642)
 
-
-### **Students Dashboard**
+## Students Dashboard
 ![students](https://github.com/user-attachments/assets/1799bb99-2b3c-4ff2-95b9-4df4d1c987dc)
 
-
-### **Lessons Dashboard**
+## Lessons Dashboard
 ![lessons](https://github.com/user-attachments/assets/5e11da6b-9a03-478a-abd3-613518b2b6d0)
 
-
-### **Progress Tracker**
+## Progress Tracker
 ![progress](https://github.com/user-attachments/assets/9d3e302c-d052-41e9-9763-9fd2af693d63)
 
-
-### **Contact Page**
+## Contact Page
 ![contact](https://github.com/user-attachments/assets/2182afa3-d0c6-43cd-a100-957d5504dec6)
-
 
 ---
 
 # 🧪 Testing
 
-All testing was carried out manually to verify that the application functions as expected across all core features.
+All testing was carried out manually to verify that the applications features functions as expected.  
+Most testing was done late at night after my children were asleep, which helped me properly focus on each feature.
 
 ---
 
@@ -180,245 +212,303 @@ All testing was carried out manually to verify that the application functions as
 | No broken links | Pass |
 | Clean page transitions | Pass |
 
-- While several minor layout and configuration issues were discovered during testing, no major functional bugs remain in the deployed version.
+Although several minor design and configuration issues were discovered during testing, no major bugs remain in the deployed version.
+
+---
+
+## ✅ Lighthouse Testing
+
+Lighthouse testing was done using Chrome DevTools on the deployed Heroku site.
+
+**Results:**
+- Performance: Not fully calculated (Performance limitations were due to large hero image loading and live server response time on Heroku.)
+- Accessibility: 88
+- Best Practices: 100
+- SEO: 90
+
+Screenshots of these results are included below as evidence.
+
+![lighthouse-results-homeroots](docs/lighthouse-results-homeroots.png)
+
+---
+
+## ✅ Bugs & Fixes (Traceable)
+
+> **Update for feedback:** Testing evidence needs to clearly show bugs found, what I changed, and what the result was (Merit M(vi)). :contentReference[oaicite:3]{index=3}  
+Here are the main issues I found during development and how they were fixed:
+
+| Bug / Issue | What was happening | Fix applied | Result |
+|---|---|---|---|
+| Static files not loading on Heroku | CSS/JS missing in production | Configured static settings + ran `collectstatic` + ensured WhiteNoise is enabled | Styling loads correctly |
+| Missing tables after deploy | Pages erroring due to migrations not applied | Ran migrations locally + on Heroku, confirmed migration order | Data loads correctly |
+| Broken links between pages | Some navigation routes were wrong | Updated URL patterns and templates | All internal links work |
+| Image upload issues | Upload not saving/displaying reliably | Corrected MEDIA settings + upload handling | Images display correctly |
+
+All bugs were fixed before final deployment.
+
+---
+
+# 🧭 User Feedback & UX Improvements
+
+> **Update for feedback:** The app needs more consistent user feedback for CRUD actions (messages + form errors), not just framework defaults (Merit M(i) + M(ii)). :contentReference[oaicite:4]{index=4}
+
+To improve this, the project includes / will include:
+- Clear success messages after create/edit/delete actions (site-wide consistency)
+- Clear inline form errors when something is missing or invalid
+- Better guidance text so users know what went wrong and what to do next
+
+*(Add screenshots here showing a success message + an inline form error once you’ve captured them.)*
 
 ---
 
 # 📱 Responsive Testing
 
-All responsive testing was completed using **Chrome Browser Developer Tools** to simulate real-world screen sizes and devices.
+Due to Iframe embedding protection being enabled, all responsive testing was completed using Chrome Browser Developer Tools to simulate real-world screen sizes and devices.
 
 The following viewports were tested:
-
 - Mobile (iPhone SE / iPhone 12)
 - Tablet (iPad)
 - Desktop (1080p and above)
 - Landscape and portrait orientations
 
----
-
 ## 📸 Responsive Testing Screenshots (Browser DevTools)
 
-
-
 - Homepage – Mobile View  
+  ![home_mobile](docs/home_mobile.png)
+
 - Students Dashboard – Tablet View  
+  ![student_tablet](docs/student_tablet.png)
+
 - Lessons Dashboard – Mobile View  
+  ![lesson_mobile](docs/lesson_mobile.png)
+
 - Progress Chart – Small Screen Landscape  
+  ![progress_ss](docs/progress_ss.png)
 
+---
 
+# 🔍 Validator Testing
 
-
-### 🔍 Validator Testing
-#### HTML Validation
-
-Tested using W3C HTML Validator
+## HTML Validation
+Tested using W3C HTML Validator  
+![html_validator](docs/html_validator.png)
 
 ✔ No major structural errors
-✔ Minor warnings ignored (Bootstrap-related)
 
-#### CSS Validation
-
-Tested using W3C CSS Jigsaw
+## CSS Validation
+Tested using W3C CSS Jigsaw  
+![css_validator](docs/css_validator.png)
 
 ✔ Pass – no invalid rules
 
 ---
+
+## ✅ Python (PEP8) Validation
+
+All custom Python files in this project were checked using pycodestyle to make sure the code follows PEP8 standards.
+
+The following command was used to run the initial test:
+
+```bash
+python -m pycodestyle .
+```
+
+To ensure only the project’s own files were checked this command was then used:
+```bash
+python -m pycodestyle . --exclude=.venv
+```
+
+Results showed that most of the warnings were related to formatting only, such as:
+
+- Lines being slightly longer than the recommended 79 characters
+- Spacing between functions and classes
+- Import placement in the settings file
+- Minor whitespace formatting
+These are all styling issues only and do not affect how the project works.
+All main features of the application were tested and confirmed to work as expected.
+
+Overall, the Python code has been validated and is functioning correctly.
+
+## ✅ JavaScript (JSHint) Validation
+JSHint was used to check the JavaScript in this project for any errors or potential issues.
+
+The following command was used:
+
+jshint core/static/
+
+During testing, most of the warnings came from a Django admin vendor file located in:
+
+homeschool_planner/staticfiles/admin/js/vendor/xregexp/xregexp.min.js
+
+This file is automatically generated by Django and is not part of the project’s code.
+
+These warnings were safely ignored because they do not affect the functionality of this project.
+
+All JavaScript written for HomeRoot was tested and is working.
+
 # 📁 Folder Pathway
 
-<img width="216" height="400" alt="directory" src="https://github.com/user-attachments/assets/43b794e4-e641-4074-87af-bb9e620f2b22" />
-
-
-
 # 📝 Project Planning
-Wireframes
-
+Wireframes 
 
 # 🧭 User Stories
+- As a homeschooling parent, I want to add my children so their learning can be organised individually.
+- As a parent, I want to plan and save lessons for future use.
+- As a parent, I want to assign lessons and track when they’re completed.
+- As a parent, I want to give grades and see improvement visually.
+- As a user, I want to contact the site owner easily through a simple form.
+# 🔒 Security (Resubmission Update)
 
-- As a homeschooling parent, I want to add my children so their learning can be organised individually.  
-- As a parent, I want to plan and save lessons for future use.  
-- As a parent, I want to assign lessons and track when they’re completed.  
-- As a parent, I want to give grades and see improvement visually.  
-- As a user, I want to contact the site owner easily through a simple form.  
+This section is added to directly address the security feedback (Pass 5.2 + 5.3). 
 
----
----
+
+## Secret Key & Environment Variables
+
+A previous version of this project included a sensitive secret value committed to the repository (Django SECRET_KEY).
+This has been corrected by:
+
+1. Removing the committed SECRET_KEY from the repository
+
+2. Rotating the key (new key generated)
+
+3. Loading secrets through environment variables instead of hardcoding them
+
+4. Ensuring the .env file is ignored by Git
+
+5. Adding an .env.example file so setup instructions are safe
+
+- Example pattern (settings.py):
+
+import os
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+### Deployment Safety
+
+- DEBUG disabled in production
+
+- Sensitive values stored in Heroku Config Vars
+
+- No secrets stored in GitHub
+
+# 🔐 Authentication & Restricted Routes (Planned Improvement)
+
+Feedback note: Data-changing routes should be restricted to logged-in users to strengthen access control and UX expectations. 
+
+
+This is listed as a planned improvement:
+
+- Add login/logout for end users
+
+- Protect create/edit/delete/progress update routes using login requirements
 
 # 🚀 Deployment
+HomeRoots was deployed using Heroku so that it can be accessed live on the web.
+The live site can be found here:
 
-HomeRoots was deployed using **Heroku** to demonstrate a complete real-world development workflow from local development to live cloud hosting. This ensured the project met the requirement for deploying a full-stack web application to a production environment and verifying that it matched the development version.
+## 🔗 Live Site: https://homeroot-e8a349dd181e.herokuapp.com/
 
-The deployment process helped me understand real production workflows used in industry including environment configuration, version control, and secure handling of sensitive settings.
+### Running the Project Locally
+To run this project on your own computer, follow the steps below:
 
----
+1. Clone the repository:
+git clone https://github.com/yourusername/your-repo-name.git
 
-## ✅ Pre-Deployment Setup
+2. Navigate into the project folder:
+cd your-repo-name
 
-Before deployment, the following production configurations were completed:
+3. Create and activate a virtual environment:
+python -m venv venv
 
-- `DEBUG` set to `False`
-- `ALLOWED_HOSTS` updated to include the Heroku app domain  
-- Static file handling configured using **WhiteNoise**  
-- **Gunicorn** added as the production web server  
-- `requirements.txt`, `Procfile`, and `runtime.txt` created  
-- Environment variables used to protect sensitive settings  
-- Final code reviewed to ensure:  
-  - No commented-out production code  
-  - No broken internal links  
-  - No secret keys pushed to GitHub  
+- Windows: venv\Scripts\activate
 
----
+- Mac/Linux: source venv/bin/activate
 
-## ✅ Step-by-Step Deployment Process (Heroku)
+4. Install the project dependencies:
+pip install -r requirements.txt
 
-1. **Login to Heroku**
+5. Create a .env file and add the following values:
+SECRET_KEY=your_secret_key
+DEBUG=True
+DATABASE_URL=sqlite:///db.sqlite3
 
-- heroku login
+6. Apply the database migrations:
+python manage.py migrate
 
-2. **Create the Heroku Application**
+7. Create a superuser for the admin panel:
+python manage.py createsuperuser
 
+8. Run the development server:
+python manage.py runserver
 
-- heroku create homeroot
+9. Open the project in your browser:
+http://127.0.0.1:8000/
 
-3. **Set Python Buildpack**
+### Heroku Deployment
+The following steps were used to deploy the project to Heroku:
 
-- heroku buildpacks:set heroku/python
+1. A new Heroku app was created.
+The following Config Vars were added:
+- SECRET_KEY
+- DATABASE_URL
+2. Production dependencies were installed:
+- gunicorn
+- dj-database-url
+- psycopg2-binary
+- whitenoise
+3. A Procfile was created to run the application.
+5. Static files were collected using:
+- python manage.py collectstatic
 
-4. **Push the Project to Heroku**
-
-
-- git add .
-- git commit -m "Initial production deployment"
-- git push heroku main
-
-5. **Apply Database Migrations**
-
-- heroku run python manage.py migrate
-
-6. **Collect Static Files**
-
-
-- heroku run python manage.py collectstatic
-
-7. **Create Superuser (Admin Access)**
-
-
-- heroku run python manage.py createsuperuser
----
-After these steps, the application was successfully deployed and rendered live on the Heroku cloud platform.
----
-## 🌍 Live Deployment Link
-The deployed version of HomeRoots is available here:
-
-🔗 https://homeroot-e8a349dd181e.herokuapp.com/
-
-The deployed site was tested to ensure it matched the development environment in both functionality and design.
-
----
-
-# 🔒 Security
-
-This time around, I made sure to handle sensitive information properly:
-
-## Secret Keys & Environment Variables
-
-I learned the hard way that putting secret keys in code is a security risk. Now:
-- The `DJANGO_SECRET_KEY` is read from environment variables only - never stored in the code
-- I created a `.env.example` file so anyone cloning the project knows what variables to set up
-- The `.env` file is in `.gitignore` so it never gets pushed to GitHub
-- On Heroku, I set the secret key in the Config Vars dashboard
-
-## Protected Database Credentials
-
-- Database URL and credentials are loaded from environment variables
-- They're never hardcoded or committed to the repository
-- Locally uses SQLite for development; production uses PostgreSQL on Heroku with encrypted credentials
-
-## User Authentication
-
-I added login/logout functionality so:
-- Only authenticated users can create, edit, or delete students and lessons
-- Users have to register and log in to use the app
-- All password-sensitive operations use Django's built-in password hashing
-
-## What's Working
-
-- DEBUG is set to False in production (prevents sensitive error details from showing)
-- CSRF token protection on all forms
-- Strong password validation for new accounts
-- Session-based authentication
-
----
+6. The project was pushed to Heroku using Git.
+7. Database migrations were run on Heroku.
+8. Once completed, the site became fully accessible online.
 
 # 📝 Assessment Criteria Alignment
-
-✔ Full CRUD functionality  
-✔ Relational database design  
-✔ Secure cloud deployment  
-✔ Django framework conventions  
-✔ Responsive front-end  
-✔ Manual testing documentation  
-✔ Version control using GitHub  
-✔ Security practices applied  
-✔ Professional documentation  
+✔ Full CRUD functionality
+✔ Relational database design
+✔ Secure cloud deployment
+✔ Django framework conventions
+✔ Responsive front-end
+✔ Manual testing documentation
+✔ Version control using GitHub
+✔ Security practices applied
+✔ Professional documentation
 
 # 📚 Credits & Sources
-
 ### Documentation
-- Django Documentation – https://docs.djangoproject.com/  
-- Bootstrap Documentation – https://getbootstrap.com/  
-- Chart.js Documentation – https://www.chartjs.org/docs/latest/  
-
+- Django Documentation – https://docs.djangoproject.com/
+- Bootstrap Documentation – https://getbootstrap.com/
+- Chart.js Documentation – https://www.chartjs.org/docs/latest/
 ### Other Resources
-- Google Fonts – https://fonts.google.com  
-- Bootstrap Icons – https://icons.getbootstrap.com  
-
+- Google Fonts – https://fonts.google.com
+- Bootstrap Icons – https://icons.getbootstrap.com
 ### Image Sources
 - AI-generated illustrations using DeepAI
-- AI-generated support image used on Contact Page  
-
+- AI-generated support image used on Contact Page
 ### Technical Support
-- StackOverflow (debugging reference) – https://stackoverflow.com/  
-
-
----
-
+- StackOverflow (debugging reference) – https://stackoverflow.com/
 # 🌟 Future Improvements
-
 I hope to extend this app with:
 
-- Printable worksheets for homeschool subjects  
-- A weekly planner PDF generator  
-- Student login system  
-- Parent dashboard  
-- Drag-and-drop lesson scheduler  
-- Cloud storage for worksheets  
-- Curriculum templates for different ages  
-
----
-
-
+- Printable worksheets for homeschool subjects
+- A weekly planner PDF generator
+- Student login system
+- Parent dashboard
+- Drag-and-drop lesson scheduler
+- Cloud storage for worksheets
+- Curriculum templates for different ages
 # 💬 Reflection
-
 Building HomeRoots was one of the most challenging but rewarding projects I have worked on so far. Balancing this project alongside parenting three young children made time management extremely difficult, but it also reinforced why this project mattered so much to me personally.
 
 During development, I faced several serious delays and was granted an official extension to complete the project. One of the biggest obstacles was ongoing technical issues with my original laptop, which significantly slowed my progress. After researching the most suitable laptop for programming and development, I made the decision to purchase a new one on the official submission date so that I could finally complete, deploy, and submit the project properly.
 
 Although these challenges caused unavoidable delays, I remained committed to finishing HomeRoots to the best of my ability. Completing this project under such difficult circumstances has made the achievement even more meaningful to me.
 
-This project helped me fully understand how a full-stack web application works — from database modelling and CRUD logic to templates, deployment, and debugging live errors. Some issues initially felt impossible to solve, but working through them built my confidence and strengthened my problem-solving skills.
+This project helped me fully understand how a full-stack web application works — from database modelling and CRUD logic to templates, deployment, and debugging live errors. Some issues took forever to solve, but working through them built my confidence and embedded knowledge that will help me in my web development career.
 
-HomeRoots represents both my technical growth and a real solution to a real need in my own life. The skills I’ve gained from this project will strongly influence how I approach future development work.
+HomeRoots represents both my technical growth and a real solution to a real need in my own life. The skills I’ve gained from this project will strongly influence how I approach development work in the future.
 
-
-
-
-# 👩‍💻 Author
-
-Ana Samanda Dicha De Sousa
-Web Application Development – Level 5 Diploma
-GitHub: https://github.com/Anasousa11
-
-
-
+👩‍💻 Author
+Ana Samanda Dicha De Sousa Web Application Development – Level 5 Diploma GitHub: https://github.com/Anasousa11

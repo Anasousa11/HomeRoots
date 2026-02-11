@@ -217,16 +217,24 @@ Although several minor design and configuration issues were discovered during te
 
 ## ✅ Lighthouse Testing
 
-Lighthouse testing was done using Chrome DevTools on the deployed Heroku site.
+Lighthouse testing was performed using Chrome DevTools on the deployed Heroku application.
 
-**Results:**
-- Performance: Not fully calculated (Performance limitations were due to large hero image loading and live server response time on Heroku.)
-- Accessibility: 88
-- Best Practices: 100
-- SEO: 90
+### Results
+- **Performance:** 69  
+- **Accessibility:** 88  
+- **Best Practices:** 100  
+- **SEO:** 90  
 
+![Lighthouse Results](core/static/core/screenshots/lighthouse-results-homeroots.png)
 
----
+### Summary
+
+- Performance score reflects Heroku free-tier cold starts and large hero image loading.
+- Accessibility is strong with proper form labels and semantic HTML structure.
+- Best Practices achieved a full score due to secure deployment and environment variable handling.
+- SEO score confirms proper heading structure, responsive design, and clean routing.
+
+Future improvements include image optimisation and performance enhancements.
 
 ## ✅ Bugs & Fixes (Traceable)
 

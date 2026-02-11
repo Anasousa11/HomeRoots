@@ -117,16 +117,16 @@ This structure allows user to track lessons completed and grades for multiple st
 
 ---
 
-## 📊 ERD (Database Diagram)
+## 🗄 Entity Relationship Diagram (ERD)
 
-> **Update for feedback:** I am adding a proper ERD image that reflects the real database structure (M(vii)). :contentReference[oaicite:2]{index=2}
+The diagram below shows the relationship between Student, Lesson and LessonProgress models.
 
-✅ ERD added below (replace the placeholder image with your actual ERD screenshot/export):
+- One Student can have many LessonProgress records.
+- One Lesson can have many LessonProgress records.
+- LessonProgress acts as a junction table linking Students and Lessons.
+- A unique constraint prevents duplicate student-lesson pairs.
 
-![ERD Diagram](docs/erd.png)
-
-*(If you don’t have it yet, generate it from your models and export as an image, then save it as `docs/erd.png`.)*
-
+![ERD](docs/erd.png)
 ---
 
 # 📸 Screenshots
@@ -228,7 +228,7 @@ Lighthouse testing was done using Chrome DevTools on the deployed Heroku site.
 
 Screenshots of these results are included below as evidence.
 
-![lighthouse-results-homeroots](docs/lighthouse-results-homeroots.png)
+![lighthouse-results-homeroots](core/static/core/screenshots/lighthouse-results-homeroots.png)
 
 ---
 
@@ -257,7 +257,7 @@ To improve this, the project includes / will include:
 - Clear inline form errors when something is missing or invalid
 - Better guidance text so users know what went wrong and what to do next
 
-*(Add screenshots here showing a success message + an inline form error once you’ve captured them.)*
+
 
 ---
 
@@ -274,16 +274,16 @@ The following viewports were tested:
 ## 📸 Responsive Testing Screenshots (Browser DevTools)
 
 - Homepage – Mobile View  
-  ![home_mobile](docs/home_mobile.png)
+  ![home_mobile](core/static/core/screenshots/home_mobile.png)
 
 - Students Dashboard – Tablet View  
-  ![student_tablet](docs/student_tablet.png)
+  ![student_tablet](core/static/core/screenshots/student_tablet.png)
 
 - Lessons Dashboard – Mobile View  
-  ![lesson_mobile](docs/lesson_mobile.png)
+  ![lesson_mobile](core/static/core/screenshots/lesson_mobile.png)
 
 - Progress Chart – Small Screen Landscape  
-  ![progress_ss](docs/progress_ss.png)
+  ![progress_ss](core/static/core/screenshots/progress_ss.png)
 
 ---
 
@@ -291,13 +291,13 @@ The following viewports were tested:
 
 ## HTML Validation
 Tested using W3C HTML Validator  
-![html_validator](docs/html_validator.png)
+![html_validator](core/static/core/screenshots/html_validator.png)
 
 ✔ No major structural errors
 
 ## CSS Validation
 Tested using W3C CSS Jigsaw  
-![css_validator](docs/css_validator.png)
+![css_validator](core/static/core/screenshots/css_validator.png)
 
 ✔ Pass – no invalid rules
 
@@ -347,9 +347,11 @@ These warnings were safely ignored because they do not affect the functionality 
 All JavaScript written for HomeRoot was tested and is working.
 
 # 📁 Folder Pathway
+![directory](core/static/core/screenshots/directory.png/)
 
 # 📝 Project Planning
 Wireframes 
+![Wireframe](core/static/core/screenshots/wireframe.png)
 
 # 🧭 User Stories
 - As a homeschooling parent, I want to add my children so their learning can be organised individually.

@@ -58,13 +58,13 @@ def lessons_dashboard(request):
 # -----------------------------------------
 # STUDENT VIEWS
 # -----------------------------------------
-class StudentListView(ListView):
+class StudentListView(LoginRequiredMixin, ListView):
     model = Student
     template_name = 'core/students/list.html'
     context_object_name = 'students'
     paginate_by = 12
 
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, DetailView):
     model = Student
     template_name = 'core/students/detail.html'
     context_object_name = 'student'
@@ -104,13 +104,13 @@ class StudentDeleteView(LoginRequiredMixin, DeleteView):
 # -----------------------------------------
 # LESSON VIEWS
 # -----------------------------------------
-class LessonListView(ListView):
+class LessonListView(LoginRequiredMixin, ListView):
     model = Lesson
     template_name = 'core/lessons/list.html'
     context_object_name = 'lessons'
     paginate_by = 10
 
-class LessonDetailView(DetailView):
+class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = 'core/lessons/detail.html'
     context_object_name = 'lesson'
